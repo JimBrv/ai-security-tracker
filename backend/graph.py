@@ -7,10 +7,16 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
 import httpx
+from dotenv import load_dotenv
 
 from models import Website, Event, Analysis
 from tools import fetch_page_content, extract_links
 from database import save_events, load_events
+
+load_dotenv()
+model = os.getenv("GOOGLE_MODEL")
+api_key = os.getenv("GOOGLE_API_KEY")
+
 
 # --- State Definition ---
 class AgentState(TypedDict):
@@ -27,16 +33,20 @@ class AgentState(TypedDict):
 def fetch_links_node(state: AgentState):
     print(f"--- Fetching links from {state['website'].url} ---")
     links = extract_links(state['website'].url)
+    print(f"Found {len(links)} links")
     return {"found_links": links}
 
 def filter_links_node(state: AgentState):
     print("--- Filtering relevant links ---")
     links = state['found_links']
+    print(f"Found {len(links)} links")
+    #print(links)
     if not links:
         return {"error": "No links found"}
 
-    # Simple heuristic: limit to first 30 links to avoid context overflow
-    links_subset = links[:30]
+    # Simple heuristic: limit to first 200 links to avoid context overflow
+    # it's ok for top10 sites
+    links_subset = links[:300]
     
     # Configure proxy for Gemini API
     proxy_url = "http://127.0.0.1:7890"
@@ -44,47 +54,58 @@ def filter_links_node(state: AgentState):
     client = httpx.Client(transport=transport)
     
     llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash-exp", 
+        model=model, 
+        api_key=api_key,
         temperature=0,
-        client=client
+        client=client,
+        # model="gemini-2.0-flash-001"
+        # client_options={
+        #     "api_endpoint": "https://api.apiyi.com/v1"
+        # }
     )
     
     parser = JsonOutputParser()
     
     prompt = ChatPromptTemplate.from_template(
         """
-        You are an AI Security Researcher. Your goal is to identify the SINGLE most relevant and recent article link from the provided list that discusses a specific AI Security Event, Attack, Vulnerability, or Research.
+        You are an AI Security Researcher. Your goal is to identify the single and recent article link from the provided list that discusses a specific AI Security Event, Attack, Vulnerability, or Research.
         
         Focus on:
-        - New attack techniques against AI/LLMs.
-        - Vulnerabilities in AI infrastructure or libraries.
-        - Security research papers (adversarial ML, etc.).
+        - New attack techniques against AI/LLMs， and AI Agents.
+        - New vulnerabilities found in AI infrastructure or libraries.
+        - AI Security research papers for adversarial ML, attack and vulnerabbilities research.
         - Real-world AI security incidents.
+        - Published in last 6 months.
         
         Ignore:
         - General company news or marketing.
-        - Generic "What is AI" articles.
-        - Links to login pages, social media, or homepages.
+        - General company products or solutions.
+        - Generic "What is AI" or "What is the AI top threat"  articles.
+        - Links to login pages, social media, or homepages, ads.
+        - Links to other sites
         
         Links:
         {links}
         
-        Return a JSON object with a single key "selected_url" containing the full URL of the best match. If nothing is relevant, return null.
+        Return a JSON object array, each array item with a key "selected_url" containing the URL. If nothing is relevant, return null.
         """
     )
-    
+
     chain = prompt | llm | parser
     
     try:
         result = chain.invoke({"links": links_subset})
-        selected_url = result.get("selected_url")
-        
-        if selected_url:
-            # Find the original link object to get the text
-            selected_link_obj = next((l for l in links if l['url'] == selected_url), None)
-            return {"selected_link": selected_link_obj}
-        else:
+        select = []
+
+        if result is None: 
             return {"error": "No relevant articles found"}
+        
+        for i, l in enumerate(result):
+             print(f"{i}. {l['selected_url']}")
+             selected_link_obj = next((j for j in links if j['url'] == l['selected_url']), None)
+             select.append(selected_link_obj)
+    
+        return {"selected_link": select}
             
     except Exception as e:
         return {"error": f"Filtering failed: {str(e)}"}
@@ -94,75 +115,90 @@ def analyze_article_node(state: AgentState):
     if not state.get('selected_link'):
         return {"error": "No link selected"}
         
-    url = state['selected_link']['url']
-    content = fetch_page_content(url)
+    urls = state['selected_link']
+    resultList = []
+    cnt = 0
+    for i, u in enumerate(urls):
+        content = fetch_page_content(u["url"])
     
-    if not content:
-        return {"error": "Failed to fetch content"}
-    
-    # Configure proxy for Gemini API
-    proxy_url = "http://127.0.0.1:7890"
-    transport = httpx.HTTPTransport(proxy=proxy_url)
-    client = httpx.Client(transport=transport)
-    
-    llm = ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash-exp", 
-        temperature=0,
-        client=client
-    )
-    
-    parser = JsonOutputParser(pydantic_object=Analysis)
-    
-    prompt = ChatPromptTemplate.from_template(
-        """
-        You are an expert AI Security Analyst. Analyze the following article content and extract the security details.
+        if not content:
+            print("error: null content!")
+            return {"error": "Failed to fetch NULL content"}
         
-        Article Content:
-        {content}
+        # Configure proxy for Gemini API
+        proxy_url = "http://127.0.0.1:7890"
+        transport = httpx.HTTPTransport(proxy=proxy_url)
+        client = httpx.Client(transport=transport)
         
-        Return a JSON object matching this schema:
-        {{
-            "summary": "Brief summary of the event/research",
-            "attack_vectors": ["List of specific attack vectors mentioned"],
-            "vulnerabilities": ["List of vulnerabilities or CVEs"],
-            "affected_components": ["List of affected libraries, models, or platforms"],
-            "impact_level": "Critical/High/Medium/Low",
-            "technical_details": "A short paragraph explaining the technical aspect of the attack/finding"
-        }}
-        """
-    )
-    
-    chain = prompt | llm | parser
-    
-    try:
-        analysis_data = chain.invoke({"content": content})
-        analysis = Analysis(**analysis_data)
-        
-        # Create the Event object
-        event = Event(
-            title=state['selected_link']['text'],
-            url=url,
-            source_website_id=state['website'].id,
-            analysis=analysis,
-            raw_content_snippet=content[:500] + "..."
+        llm = ChatGoogleGenerativeAI(
+            model=model,
+            api_key=api_key,
+            temperature=0,
+            client=client
+            # model="gemini-2.0-flash-001",
+            # client_options={
+            #     "api_endpoint": "https://api.apiyi.com/v1"
+            # }   
         )
         
-        return {"analysis_result": analysis, "final_event": event}
+        parser = JsonOutputParser(pydantic_object=Analysis)
         
-    except Exception as e:
-        return {"error": f"Analysis failed: {str(e)}"}
+        prompt = ChatPromptTemplate.from_template(
+            """
+            You are an expert AI Security Analyst. Analyze the following article content and extract the security details.
+            
+            Article Content:
+            {content}
+            
+            Return a JSON object matching this schema:
+            {{
+                "summary": "Brief summary of the event/research",
+                "attack_vectors": ["List of specific attack vectors mentioned"],
+                "vulnerabilities": ["List of vulnerabilities or CVEs"],
+                "affected_components": ["List of affected libraries, models, or platforms"],
+                "impact_level": "Critical/High/Medium/Low",
+                "technical_details": "A short paragraph explaining the technical aspect of the attack/finding"
+            }}
+            """
+        )
+        
+        chain = prompt | llm | parser
+    
+        try:
+            analysis_data = chain.invoke({"content": content})
+            analysis = Analysis(**analysis_data)
+            
+            # Create the Event object
+            event = Event(
+                title=u['text'],
+                url=u['url'],
+                source_website_id=state['website'].id,
+                analysis=analysis,
+                raw_content_snippet=content[:500] + "..."
+            )
+
+            resultList.append(event)
+            print(f"{cnt}.{u['url']} Model Summary: {analysis}")
+            cnt=cnt+1
+            
+        except Exception as e:
+            return {"error": f"Analysis failed: {str(e)}"}
+
+    return {"analysis_result": "OK", "final_event": resultList}
+
 
 def save_result_node(state: AgentState):
     print("--- Saving result ---")
-    if state.get('final_event'):
-        existing_events = load_events()
+    evList = state.get('final_event')
+    existing_events = load_events()
+
+    for i, ev in enumerate(evList):
         # Simple check to avoid duplicates based on URL
-        if not any(e.url == state['final_event'].url for e in existing_events):
-            existing_events.append(state['final_event'])
+        if not any(e.url == ev.url for e in existing_events):
+            existing_events.append(ev)
             save_events(existing_events)
-            return {"final_event": state['final_event']} # Pass through
         else:
-             print("Duplicate event, skipping save.")
+            print("Duplicate event, skipping save.")
     return {}
 
 # --- Graph Construction ---

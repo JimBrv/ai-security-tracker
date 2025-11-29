@@ -2,9 +2,10 @@
 """Test script to verify the HiddenLayer website scraping fix"""
 
 from tools import extract_links, fetch_page_content
+import sys
 
-def test_hiddenlayer():
-    url = "https://hiddenlayer.com/research/"
+def test_hiddenlayer(url: str):
+    url = url
     print(f"Testing scraping of: {url}\n")
     
     # Test link extraction
@@ -15,8 +16,8 @@ def test_hiddenlayer():
     
     if links:
         print(f"✅ SUCCESS! Found {len(links)} links")
-        print("\nFirst 5 links:")
-        for i, link in enumerate(links[:5], 1):
+        print(f"{links}")
+        for i, link in enumerate(links):
             print(f"{i}. {link['text'][:60]}...")
             print(f"   URL: {link['url']}\n")
     else:
@@ -34,4 +35,4 @@ def test_hiddenlayer():
         print(f"❌ FAILED: {content}")
 
 if __name__ == "__main__":
-    test_hiddenlayer()
+    test_hiddenlayer(sys.argv[1])

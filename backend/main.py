@@ -52,8 +52,8 @@ async def run_scan_task(website: Website):
     try:
         # Invoke the graph
         result = await app_graph.ainvoke({"website": website})
-        if result.get("final_event"):
-            print(f"Scan complete for {website.name}: Found event {result['final_event'].title}")
+        if result.get("analysis_result") == "OK":
+            print(f"Scan complete for {website.name}: ")
         elif result.get("error"):
             print(f"Scan failed for {website.name}: {result['error']}")
         else:

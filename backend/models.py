@@ -26,3 +26,7 @@ class Event(BaseModel):
     published_at: datetime = Field(default_factory=datetime.now)
     analysis: Analysis
     raw_content_snippet: Optional[str] = None
+
+class EventArray(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    event: List[Event]=None
