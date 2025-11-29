@@ -1,0 +1,100 @@
+# AI Security Tracker
+
+A web application for tracking, analyzing, and summarizing AI security events and research.
+
+## Features
+
+- **Automated Collection**: Automatically collects the latest AI security events, attack techniques, and research from a predefined list of sources.
+- **AI-Powered Analysis**: Uses LangChain and LangGraph to filter, analyze, and summarize security content.
+    - **Search Agent**: Scours the web for the latest security reports and blog posts.
+    - **Summary Agent**: Distills complex technical details into concise summaries, highlighting attack vectors and impact.
+- **Web Interface**: A modern React-based interface for viewing and managing security insights.
+
+## Screenshots
+
+![Dashboard View](./assets/screenshot_dashboard.png)
+*Dashboard showing the latest AI security events*
+
+![Analysis View](./assets/screenshot_analysis.png)
+*Deep analysis of a specific security event*
+
+## Default Tracked Websites
+
+The system automatically tracks the following sources for AI security news:
+
+- **Zenity Blog**: https://www.zenity.io/blog/
+- **HiddenLayer Research**: https://hiddenlayer.com/research/
+- **Protect AI / Huntr**: https://www.protectai.com/blog
+- **Wiz Research**: https://www.wiz.io/blog
+- **Enkrypt AI**: https://www.enkryptai.com/blog
+- **Huntr.com Feed**: https://huntr.com/
+- **MITRE ATLAS**: https://atlas.mitre.org/
+- **Hugging Face Security**: https://huggingface.co/blog/security
+- **Google Project Zero**: https://googleprojectzero.blogspot.com/
+- **arXiv (Cryptography and Security)**: https://arxiv.org/list/cs.CR/recent
+
+## Customization
+
+### Adding New Websites
+
+To add your own websites to the tracker:
+
+1.  Navigate to the **Settings** page in the web interface.
+2.  Use the form to add the name and URL of the new website you wish to track.
+
+## Tech Stack
+
+- **Backend**: Python, FastAPI, LangChain, LangGraph
+- **Frontend**: React, Vite, Tailwind CSS, Framer Motion
+- **Package Management**: `uv` (Python), `npm` (Node.js)
+
+## Setup Instructions
+
+### Prerequisites
+
+- Python 3.12+
+- Node.js
+- `uv` package manager
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Install dependencies:
+   ```bash
+   uv sync
+   ```
+
+3. Configure environment variables:
+   - Copy `.env.example` to `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edit `.env` and add your API keys (e.g., Google Gemini API key).
+
+4. Run the backend server:
+   ```bash
+   uv run main.py
+   ```
+   The API will be available at `http://localhost:8000`.
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`.
