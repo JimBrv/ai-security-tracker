@@ -83,4 +83,4 @@ Thumbs.db
 
 # Browser recordings (from testing)
 *.webp
-*.png
+#*.png
