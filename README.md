@@ -18,6 +18,9 @@ A web application for tracking, analyzing, and summarizing AI security events an
 ![Analysis View](./assets/screenshot_analysis.png)
 *Deep analysis of a specific security event*
 
+![Analysis View](./assets/screenshot_sources.png)
+*Sources of famous AI security resource*
+
 ## Default Tracked Websites
 
 The system automatically tracks the following sources for AI security news:

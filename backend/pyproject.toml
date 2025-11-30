@@ -1,8 +1,9 @@
 [project]
 name = "backend"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI Security Tracker Backend"
 readme = "README.md"
+author = "Weiyong"
 requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4>=4.14.2",
