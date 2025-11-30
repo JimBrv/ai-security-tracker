@@ -2,12 +2,17 @@
 
 A web application for tracking, analyzing, and summarizing AI security events and research.
 
+## License
+ <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+
+
 ## Features
 
 - **Automated Collection**: Automatically collects the latest AI security events, attack techniques, and research from a predefined list of sources.
-- **AI-Powered Analysis**: Uses LangChain and LangGraph to filter, analyze, and summarize security content.
+- **AI Agents Powered Analysis**: Uses 2 AI Agents with *LangChain** and **LangGraph** to filter, analyze, and summarize security content.
     - **Search Agent**: Scours the web for the latest security reports and blog posts.
-    - **Summary Agent**: Distills complex technical details into concise summaries, highlighting attack vectors and impact.
+    - **Summary Agent**: Distills complex technical details into concise summaries, highlighting **attack vectors**, **Vulnerabilities**, and **Impact**.
+    - **AI Powered**: Use Google Gemini to select the best events, and to summarize the content.
 - **Web Interface**: A modern React-based interface for viewing and managing security insights.
 
 ## Screenshots
