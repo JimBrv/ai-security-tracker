@@ -1,12 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+import os
+from dotenv import load_dotenv
 
-# Proxy configuration
+load_dotenv()
+
+# Proxy configuration based on environment variable
+USE_PROXY = os.getenv("USE_PROXY", "0") == "1"
+PROXY_URL = os.getenv("PROXY_URL", "http://127.0.0.1:7890")
+
 PROXIES = {
-    'http': 'http://127.0.0.1:7890',
-    'https': 'http://127.0.0.1:7890'
-}
+    'http': PROXY_URL,
+    'https': PROXY_URL
+} if USE_PROXY else None
 
 def fetch_page_content(url: str) -> str:
     """

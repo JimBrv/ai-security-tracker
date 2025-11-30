@@ -48,10 +48,15 @@ def filter_links_node(state: AgentState):
     # it's ok for top10 sites
     links_subset = links[:300]
     
-    # Configure proxy for Gemini API
-    proxy_url = "http://127.0.0.1:7890"
-    transport = httpx.HTTPTransport(proxy=proxy_url)
-    client = httpx.Client(transport=transport)
+    # Configure proxy for Gemini API based on environment variable
+    use_proxy = os.getenv("USE_PROXY", "0") == "1"
+    proxy_url = os.getenv("PROXY_URL", "http://127.0.0.1:7890")
+    
+    if use_proxy:
+        transport = httpx.HTTPTransport(proxy=proxy_url)
+        client = httpx.Client(transport=transport)
+    else:
+        client = httpx.Client()
     
     llm = ChatGoogleGenerativeAI(
         model=model, 
@@ -125,10 +130,15 @@ def analyze_article_node(state: AgentState):
             print("error: null content!")
             return {"error": "Failed to fetch NULL content"}
         
-        # Configure proxy for Gemini API
-        proxy_url = "http://127.0.0.1:7890"
-        transport = httpx.HTTPTransport(proxy=proxy_url)
-        client = httpx.Client(transport=transport)
+        # Configure proxy for Gemini API based on environment variable
+        use_proxy = os.getenv("USE_PROXY", "0") == "1"
+        proxy_url = os.getenv("PROXY_URL", "http://127.0.0.1:7890")
+        
+        if use_proxy:
+            transport = httpx.HTTPTransport(proxy=proxy_url)
+            client = httpx.Client(transport=transport)
+        else:
+            client = httpx.Client()
         
         llm = ChatGoogleGenerativeAI(
             model=model,

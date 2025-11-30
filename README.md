@@ -154,3 +154,13 @@ The system follows a **Graph-based Agent Workflow** pattern, where each security
    npm run dev
    ```
    The application will be available at `http://localhost:5173`.
+
+### NOTE: Proxy is opened by default!
+You can close it in the **.env** file
+- **USE_PROXY=0**: Direct connection (no proxy)
+- **USE_PROXY=1**: Use proxy specified in PROXY_URL
+#### Example
+```bash
+USE_PROXY=1
+PROXY_URL="http://127.0.0.1:7890" 
+```
