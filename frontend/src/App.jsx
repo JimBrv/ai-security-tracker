@@ -5,7 +5,7 @@ import Settings from './pages/Settings';
 
 function App() {
     const [activeTab, setActiveTab] = useState('dashboard');
-    const [darkMode, setDarkMode] = useState(true);
+    const [darkMode, setDarkMode] = useState(false);
 
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
