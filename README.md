@@ -1,10 +1,9 @@
-# AI Security Tracker
+ # AI Security Tracker
 
-A web application for tracking, analyzing, and summarizing AI security events and research.
+A web application for tracking, analyzing, and summarizing AI security events and research. Uses a **multi-agent AI architecture** powered by **LangGraph** and **LangChain**, with **Google Gemini** as the LLM provider. Implements an automated pipeline for discovering, filtering, analyzing, and storing AI security events from various sources.
 
 ## License
  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
-
 
 ## Features
 
@@ -50,7 +49,56 @@ To add your own websites to the tracker:
 1.  Navigate to the **Settings** page in the web interface.
 2.  Use the form to add the name and URL of the new website you wish to track.
 
-## Tech Stack
+## Technology Stack
+
+### Core Framework
+- **FastAPI**: RESTful API server with async support
+- **Python 3.12+**: Modern Python with type hints
+- **uv**: Fast Python package manager
+
+### AI/ML Stack
+- **LangGraph**: Orchestrates multi-step AI workflows as state machines
+- **LangChain**: Provides LLM abstractions and prompt templates
+- **Google Gemini API**: Powers intelligent content filtering and analysis
+- **Pydantic**: Schema validation and structured outputs
+
+### Data & Utilities
+- **BeautifulSoup4**: HTML parsing and web scraping
+- **Requests/HTTPX**: HTTP client with proxy support
+- **JSON**: File-based data persistence
+
+## Architecture Pattern
+
+The system follows a **Graph-based Agent Workflow** pattern, where each security source is processed through a multi-stage pipeline:
+
+```
+┌─────────────┐
+│   Website   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────┐
+│  Fetch Links    │ ◄── Extract all links from source
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Filter Links   │ ◄── AI Agent selects relevant security articles
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│ Analyze Article │ ◄── AI Agent extracts security details
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Save Result    │ ◄── Persist to JSON database
+└─────────────────┘
+```
+
+
+### Directory
 
 - **Backend**: Python, FastAPI, LangChain, LangGraph
 - **Frontend**: React, Vite, Tailwind CSS, Framer Motion
