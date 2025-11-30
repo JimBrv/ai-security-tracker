@@ -5,14 +5,19 @@ import Settings from './pages/Settings';
 
 function App() {
     const [activeTab, setActiveTab] = useState('dashboard');
+    const [darkMode, setDarkMode] = useState(true);
+
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+    };
 
     return (
-        <div className="min-h-screen bg-slate-950 text-slate-50 font-sans selection:bg-blue-500/30">
-            <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className={`min-h-screen font-sans selection:bg-blue-500/30 ${darkMode ? 'dark bg-slate-950 text-slate-50' : 'bg-slate-50 text-slate-900'}`}>
+            <Navbar activeTab={activeTab} setActiveTab={setActiveTab} darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
             <main>
-                {activeTab === 'dashboard' && <Dashboard />}
-                {activeTab === 'settings' && <Settings />}
+                {activeTab === 'dashboard' && <Dashboard darkMode={darkMode} />}
+                {activeTab === 'settings' && <Settings darkMode={darkMode} />}
             </main>
         </div>
     );
