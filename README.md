@@ -2,19 +2,19 @@
 
 A web application for tracking, analyzing, and summarizing AI security events and research. Uses a **multi-agent AI architecture** powered by **LangGraph** and **LangChain**, with **Google Gemini** as the LLM provider. Implements an automated pipeline for discovering, filtering, analyzing, and storing AI security events from various sources.
 
-## License
+## 📜 License
  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
 
-## Features
+## 🎯 Features
 
-- **Automated Collection**: Automatically collects the latest AI security events, attack techniques, and research from a predefined list of sources.
-- **AI Agents Powered Analysis**: Uses 2 AI Agents with *LangChain** and **LangGraph** to filter, analyze, and summarize security content.
+- ✅ **Automated Collection**: Automatically collects the latest AI security events, attack techniques, and research from a predefined list of sources.
+- ✅ **AI Agents Powered Analysis**: Uses 2 AI Agents with ***LangChain** and **LangGraph** to filter, analyze, and summarize security content.
     - **Search Agent**: Scours the web for the latest security reports and blog posts.
     - **Summary Agent**: Distills complex technical details into concise summaries, highlighting **attack vectors**, **Vulnerabilities**, and **Impact**.
     - **AI Powered**: Use Google Gemini to select the best events, and to summarize the content.
-- **Web Interface**: A modern React-based interface for viewing and managing security insights.
+- ✅ **Web Interface**: A modern React-based interface for viewing and managing security insights.
 
-## Screenshots
+## 📚 Screenshots
 
 ![Dashboard View](./assets/screenshot_dashboard.png)
 *Dashboard showing the latest AI security events*
@@ -25,7 +25,7 @@ A web application for tracking, analyzing, and summarizing AI security events an
 ![Analysis View](./assets/screenshot_sources.png)
 *Sources of famous AI security resource*
 
-## Default Tracked Websites
+## 💬 Default Tracked Websites
 
 The system automatically tracks the following sources for AI security news:
 
@@ -49,7 +49,7 @@ To add your own websites to the tracker:
 1.  Navigate to the **Settings** page in the web interface.
 2.  Use the form to add the name and URL of the new website you wish to track.
 
-## Technology Stack
+## 🛠️ Technology Stack
 
 ### Core Framework
 - **FastAPI**: RESTful API server with async support
@@ -67,7 +67,7 @@ To add your own websites to the tracker:
 - **Requests/HTTPX**: HTTP client with proxy support
 - **JSON**: File-based data persistence
 
-## Architecture Pattern
+## 🏗️ Architecture Pattern
 
 The system follows a **Graph-based Agent Workflow** pattern, where each security source is processed through a multi-stage pipeline:
 
@@ -104,7 +104,7 @@ The system follows a **Graph-based Agent Workflow** pattern, where each security
 - **Frontend**: React, Vite, Tailwind CSS, Framer Motion
 - **Package Management**: `uv` (Python), `npm` (Node.js)
 
-## Setup Instructions
+## 🚀 Setup Instructions
 
 ### Prerequisites
 
