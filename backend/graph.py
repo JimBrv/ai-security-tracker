@@ -1,5 +1,6 @@
 import os
 from typing import List, Optional, Dict, Any
+from datetime import datetime
 from typing_extensions import TypedDict
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -11,7 +12,8 @@ from dotenv import load_dotenv
 
 from models import Website, Event, Analysis
 from tools import fetch_page_content, extract_links
-from database import save_events, load_events
+from tools import fetch_page_content, extract_links
+from database import save_events, load_events, load_websites, save_websites
 
 load_dotenv()
 model = os.getenv("GOOGLE_MODEL")
@@ -167,8 +169,11 @@ def analyze_article_node(state: AgentState):
                 "vulnerabilities": ["List of vulnerabilities or CVEs"],
                 "affected_components": ["List of affected libraries, models, or platforms"],
                 "impact_level": "Critical/High/Medium/Low",
-                "technical_details": "A short paragraph explaining the technical aspect of the attack/finding"
+                "technical_details": "A short paragraph explaining the technical aspect of the attack/finding",
+                "published_date": "YYYY-MM-DD"
             }}
+            
+            IMPORTANT: Ensure 'published_date' is in YYYY-MM-DD format. If the date is not explicitly mentioned, try to infer it from the context or metadata. If absolutely no date can be found, use today's date.
             """
         )
         
@@ -179,11 +184,18 @@ def analyze_article_node(state: AgentState):
             analysis = Analysis(**analysis_data)
             
             # Create the Event object
+            try:
+                pub_date = datetime.strptime(analysis.published_date, "%Y-%m-%d") if analysis.published_date else datetime.now()
+            except ValueError:
+                print(f"Date parse error for {analysis.published_date}, using now()")
+                pub_date = datetime.now()
+
             event = Event(
                 title=u['text'],
                 url=u['url'],
                 source_website_id=state['website'].id,
                 analysis=analysis,
+                published_at=pub_date,
                 raw_content_snippet=content[:500] + "..."
             )
 
@@ -209,6 +221,16 @@ def save_result_node(state: AgentState):
             save_events(existing_events)
         else:
             print("Duplicate event, skipping save.")
+            
+    # Update website last_scraped_at
+    websites = load_websites()
+    for w in websites:
+        if w.id == state['website'].id:
+            w.last_scraped_at = datetime.now()
+            print(f"Updated last_scraped_at for {w.name}")
+            break
+    save_websites(websites)
+    
     return {}
 
 # --- Graph Construction ---

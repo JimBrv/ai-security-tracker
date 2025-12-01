@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus, Trash2, Globe, Play, Loader2 } from 'lucide-react';
+import { Plus, Trash2, Globe, Play, Loader2, Clock, FileText } from 'lucide-react';
 
 export default function Settings() {
     const [websites, setWebsites] = useState([]);
@@ -139,7 +139,21 @@ export default function Settings() {
                             <div>
                                 <h3 className="font-semibold text-slate-200">{site.name}</h3>
                                 <a href={site.url} target="_blank" rel="noreferrer" className="text-xs text-blue-400 hover:underline mb-1 block">{site.url}</a>
-                                <p className="text-sm text-slate-500">{site.description}</p>
+                                <p className="text-sm text-slate-500 mb-2">{site.description}</p>
+                                <div className="flex items-center gap-4 text-xs text-slate-500">
+                                    <div className="flex items-center gap-1" title="Last Scanned">
+                                        <Clock className="w-3 h-3" />
+                                        <span>
+                                            {site.last_scraped_at
+                                                ? new Date(site.last_scraped_at).toLocaleString()
+                                                : 'Never scanned'}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center gap-1" title="Events Found">
+                                        <FileText className="w-3 h-3" />
+                                        <span>{site.event_count || 0} events</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

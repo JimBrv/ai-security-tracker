@@ -31,6 +31,9 @@ export default function EventCard({ event }) {
                             <span className="text-xs text-slate-500 dark:text-slate-400">
                                 {new Date(event.published_at).toLocaleDateString()}
                             </span>
+                            <span className="flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                                {new URL(event.url).hostname.replace(/^www\./, '')}
+                            </span>
                         </div>
                         <h3
                             className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2 leading-tight cursor-help"

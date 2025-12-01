@@ -25,9 +25,21 @@ app.add_middleware(
 
 # --- Endpoints ---
 
-@app.get("/websites", response_model=List[Website])
+@app.get("/websites")
 def get_websites():
-    return load_websites()
+    websites = load_websites()
+    events = load_events()
+    
+    # Calculate event counts
+    result = []
+    for w in websites:
+        count = sum(1 for e in events if e.source_website_id == w.id)
+        # Create a dict response with the extra field
+        w_dict = w.model_dump()
+        w_dict['event_count'] = count
+        result.append(w_dict)
+        
+    return result
 
 @app.post("/websites", response_model=Website)
 def add_website(website: Website):

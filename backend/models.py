@@ -17,6 +17,7 @@ class Analysis(BaseModel):
     affected_components: List[str]
     impact_level: str  # e.g., "Critical", "High", "Medium", "Low"
     technical_details: str
+    published_date: Optional[str] = None
 
 class Event(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
