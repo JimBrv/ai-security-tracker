@@ -121,11 +121,28 @@ def analyze_article_node(state: AgentState):
     print("--- Analyzing article ---")
     if not state.get('selected_link'):
         return {"error": "No link selected"}
-        
+
     urls = state['selected_link']
+    
+    if len(urls) == 0:
+        return {"error": "No relevant articles found"}
+
+    # Load existing events to avoid re-processing
+    existing_events = load_events()
+    existing_urls = {event.url for event in existing_events}
+  
+    # Filter out URLs that already exist
+    new_urls = [u for u in urls if u != None and u["url"] not in existing_urls]
+  
+    if not new_urls:
+        print("All selected URLs already exist in the database. Skipping analysis.")
+        return {"analysis_result": "OK", "final_event": []}
+    
+    print(f"Found {len(new_urls)} new URLs to analyze (skipped {len(urls) - len(new_urls)} existing)")
+    
     resultList = []
     cnt = 0
-    for i, u in enumerate(urls):
+    for i, u in enumerate(new_urls):
         content = fetch_page_content(u["url"])
     
         if not content:
@@ -195,7 +212,7 @@ def analyze_article_node(state: AgentState):
                 url=u['url'],
                 source_website_id=state['website'].id,
                 analysis=analysis,
-                published_at=pub_date,
+                scan_date=datetime.now(),
                 raw_content_snippet=content[:500] + "..."
             )
 
@@ -212,6 +229,12 @@ def analyze_article_node(state: AgentState):
 def save_result_node(state: AgentState):
     print("--- Saving result ---")
     evList = state.get('final_event')
+    
+    # Handle case when no events found
+    if not evList:
+        print("No events to save.")
+        return {}
+    
     existing_events = load_events()
 
     for i, ev in enumerate(evList):

@@ -24,7 +24,7 @@ class Event(BaseModel):
     title: str
     url: str
     source_website_id: str
-    published_at: datetime = Field(default_factory=datetime.now)
+    scan_date: datetime = Field(default_factory=datetime.now)
     analysis: Analysis
     raw_content_snippet: Optional[str] = None
 
