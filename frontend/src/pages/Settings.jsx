@@ -6,6 +6,8 @@ export default function Settings({ darkMode }) {
     const [websites, setWebsites] = useState([]);
     const [loading, setLoading] = useState(true);
     const [scanningId, setScanningId] = useState(null);
+    const [batchScanning, setBatchScanning] = useState(false);
+    const [scanProgress, setScanProgress] = useState({ current: 0, total: 0 });
     const [newSite, setNewSite] = useState({ name: '', url: '', description: '' });
     const [isAdding, setIsAdding] = useState(false);
 
@@ -59,6 +61,32 @@ export default function Settings({ darkMode }) {
         }
     };
 
+    const handleBatchScan = async () => {
+        if (!window.confirm(`Start scanning all ${websites.length} sources? This may take a while.`)) return;
+
+        setBatchScanning(true);
+        setScanProgress({ current: 0, total: websites.length });
+
+        for (let i = 0; i < websites.length; i++) {
+            const site = websites[i];
+            setScanProgress({ current: i + 1, total: websites.length });
+
+            try {
+                await axios.post(`http://localhost:8000/scan/${site.id}`);
+                console.log(`Scan started for: ${site.name}`);
+            } catch (error) {
+                console.error(`Failed to scan ${site.name}:`, error);
+            }
+
+            // Small delay between scans to avoid overwhelming the server
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+
+        setBatchScanning(false);
+        setScanProgress({ current: 0, total: 0 });
+        alert(`Batch scan initiated for all ${websites.length} sources!`);
+    };
+
     return (
         <div className="pt-24 pb-12 px-4 max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-8">
@@ -66,13 +94,33 @@ export default function Settings({ darkMode }) {
                     <h1 className={`text-3xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>Data Sources</h1>
                     <p className={darkMode ? 'text-slate-400' : 'text-slate-600'}>Manage the intelligence feeds monitored by the agents.</p>
                 </div>
-                <button
-                    onClick={() => setIsAdding(!isAdding)}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors font-medium"
-                >
-                    <Plus className="w-4 h-4" />
-                    Add Source
-                </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleBatchScan}
+                        disabled={batchScanning || websites.length === 0}
+                        className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                        title="Scan all sources"
+                    >
+                        {batchScanning ? (
+                            <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                                Scanning ({scanProgress.current}/{scanProgress.total})
+                            </>
+                        ) : (
+                            <>
+                                <Play className="w-4 h-4" />
+                                Scan All
+                            </>
+                        )}
+                    </button>
+                    <button
+                        onClick={() => setIsAdding(!isAdding)}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors font-medium"
+                    >
+                        <Plus className="w-4 h-4" />
+                        Add Source
+                    </button>
+                </div>
             </div>
 
             {isAdding && (
@@ -147,8 +195,8 @@ export default function Settings({ darkMode }) {
                         }`}>
                         <div className="flex items-start gap-4">
                             <div className={`p-3 rounded-lg transition-colors ${darkMode
-                                    ? 'bg-slate-800 text-slate-400 group-hover:text-blue-400'
-                                    : 'bg-slate-100 text-slate-500 group-hover:text-blue-600'
+                                ? 'bg-slate-800 text-slate-400 group-hover:text-blue-400'
+                                : 'bg-slate-100 text-slate-500 group-hover:text-blue-600'
                                 }`}>
                                 <Globe className="w-5 h-5" />
                             </div>
@@ -177,8 +225,8 @@ export default function Settings({ darkMode }) {
                         <div className="flex items-center gap-2">
                             <button
                                 onClick={() => handleScan(site.id)}
-                                disabled={scanningId === site.id}
-                                className={`p-2 rounded-lg transition-colors disabled:opacity-50 ${darkMode
+                                disabled={scanningId === site.id || batchScanning}
+                                className={`p-2 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${darkMode
                                         ? 'text-slate-400 hover:text-green-400 hover:bg-green-500/10'
                                         : 'text-slate-500 hover:text-green-600 hover:bg-green-50'
                                     }`}
@@ -189,8 +237,8 @@ export default function Settings({ darkMode }) {
                             <button
                                 onClick={() => handleDelete(site.id)}
                                 className={`p-2 rounded-lg transition-colors ${darkMode
-                                        ? 'text-slate-400 hover:text-red-400 hover:bg-red-500/10'
-                                        : 'text-slate-500 hover:text-red-600 hover:bg-red-50'
+                                    ? 'text-slate-400 hover:text-red-400 hover:bg-red-500/10'
+                                    : 'text-slate-500 hover:text-red-600 hover:bg-red-50'
                                     }`}
                                 title="Delete Source"
                             >
