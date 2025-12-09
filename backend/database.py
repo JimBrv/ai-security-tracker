@@ -49,7 +49,15 @@ def init_db():
             Website(name="MITRE ATLAS", url="https://atlas.mitre.org/", description="Real-world AI attacks mapped to ATT&CK"),
             Website(name="Hugging Face Security", url="https://huggingface.co/blog/security", description="Malicious Model Scanning"),
             Website(name="Google Project Zero", url="https://googleprojectzero.blogspot.com/", description="Low-level vulnerabilities"),
-            Website(name="arXiv (Cryptography and Security)", url="https://arxiv.org/list/cs.CR/recent", description="Academic research on AI security")
+            Website(name="arXiv (Cryptography and Security)", url="https://arxiv.org/list/cs.CR/recent", description="Academic research on AI security"),
+            # New Sources Added
+            Website(name="OpenAI Safety", url="https://openai.com/safety", description="Core model safety updates, superalignment"),
+            Website(name="Anthropic Research", url="https://www.anthropic.com/research", description="Constitutional AI, mechanistic interpretability"),
+            Website(name="Microsoft Security (AI)", url="https://www.microsoft.com/en-us/security/blog/topic/artificial-intelligence/", description="Copilot security, enterprise threat intel"),
+            Website(name="Cloudflare AI Blog", url="https://blog.cloudflare.com/tag/ai/", description="AI Gateway security, prompt injection WAF"),
+            Website(name="Unit 42 (Palo Alto)", url="https://unit42.paloaltonetworks.com/tag/artificial-intelligence/", description="Wild AI attacks, real-world vulnerabilities"),
+            Website(name="Darktrace Blog", url="https://darktrace.com/blog", description="Offensive AI, autonomous response trends"),
+            Website(name="Pillar Security", url="https://pillar.security/blog", description="Red Teaming, MLOps security")
         ]
         save_websites(initial_websites)
 
