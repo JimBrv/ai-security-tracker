@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from models import Website, Event
 from database import load_websites, save_websites, load_events, save_events
 from graph import app_graph
+from monitor_graph import monitor_graph, generate_daily_summary_report
 
 load_dotenv()
 
@@ -82,6 +83,29 @@ async def scan_website(website_id: str, background_tasks: BackgroundTasks):
     
     background_tasks.add_task(run_scan_task, website)
     return {"status": "Scan started", "website": website.name}
+
+async def run_monitor_task(source_url: str):
+    print(f"Starting background monitor for {source_url}")
+    try:
+        result = await monitor_graph.ainvoke({"source_url": source_url})
+        if result.get("error"):
+            print(f"Monitor failed for {source_url}: {result['error']}")
+        else:
+            print(f"Monitor complete for {source_url}")
+    except Exception as e:
+        print(f"Error running monitor for {source_url}: {e}")
+
+class MonitorRequest(BaseModel):
+    source_url: str
+
+@app.post("/monitor/run")
+async def run_monitor(request: MonitorRequest, background_tasks: BackgroundTasks):
+    background_tasks.add_task(run_monitor_task, request.source_url)
+    return {"status": "Monitor started", "source": request.source_url}
+
+@app.get("/monitor/summary")
+def get_monitor_summary():
+    return {"summary": generate_daily_summary_report()}
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

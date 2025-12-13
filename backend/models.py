@@ -18,6 +18,7 @@ class Analysis(BaseModel):
     impact_level: str  # e.g., "Critical", "High", "Medium", "Low"
     technical_details: str
     published_date: Optional[str] = None
+    sentiment: Optional[str] = "Neutral"  # Positive, Negative, Neutral
 
 class Event(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
