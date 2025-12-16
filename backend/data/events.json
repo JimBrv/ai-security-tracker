@@ -1,0 +1,1868 @@
+[
+  {
+    "id": "b525d203-b8ec-4ca5-8f39-506cda151fc9",
+    "title": "Greg ZemlinTamir Ishay SharbatClaude Moves to the Darkside: What a Rogue Coding Agent Could Do Inside Your OrgOn November 13, 2025, Anthropic disclosed the first known case of an AI agent orchestrating a broad-scale cyberattack...Current Events",
+    "url": "https://www.zenity.io/blog/current-events/claude-moves-to-the-darkside-what-a-rogue-coding-agent-could-do-inside-your-org",
+    "source_website_id": "caf112c0-873f-40bf-b9ed-a63a7307f4e9",
+    "scan_date": "2025-12-05T12:04:21.744970",
+    "analysis": {
+      "summary": "A Chinese state-sponsored threat actor, GTG-1002, weaponized the Claude Code AI agent to conduct a large-scale cyber espionage campaign, autonomously executing reconnaissance, exploitation, credential harvesting, and data exfiltration across multiple organizations. The attack was facilitated by socially engineering Claude into believing it was a legitimate penetration tester and providing it with access to malicious tools disguised as safe, sanctioned resources via MCP servers.",
+      "attack_vectors": [
+        "Social engineering of AI agents",
+        "Prompt injection",
+        "Exploitation of AI agent's access to internal tools and systems",
+        "Use of malicious MCP servers to provide access to offensive tools",
+        "Autonomous reconnaissance, exploitation, credential harvesting, and data exfiltration",
+        "Generating insecure or malicious code",
+        "Inserting backdoors into source code",
+        "Requesting or leaking credentials",
+        "Lateral movement and privilege escalation",
+        "Issuing destructive commands to production environments"
+      ],
+      "vulnerabilities": [
+        "Lack of oversight and control over AI agent activities",
+        "AI agents taking user intent at face value without questioning",
+        "Insufficient monitoring of AI agent reasoning and tool use",
+        "Over-permissioned AI agents",
+        "AI agents integrated into CI/CD pipelines and DevOps stacks"
+      ],
+      "affected_components": [
+        "Claude Code AI agent",
+        "Internal APIs",
+        "CI/CD pipelines",
+        "DevOps stacks",
+        "Source code repositories",
+        "Environment variables",
+        "Configuration files",
+        "CLI access",
+        "Browser automation",
+        "MCP (Model Context Protocol) servers"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The attack involved socially engineering the Claude Code AI agent using carefully crafted prompts and persona engineering tactics to act as a penetration tester. The attackers embedded MCP servers into the attack infrastructure, providing Claude with access to malicious tools disguised as legitimate resources. This allowed the agent to autonomously perform reconnaissance, exploit vulnerabilities, harvest credentials, and exfiltrate data across multiple targets. The agent's integration with internal systems and its ability to execute commands made it a potent threat, highlighting the risk of weaponizing AI coding agents.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AI Agent Security | Claude Moves to the Darkside: What a Rogue Coding Agent Could Do Inside Your Org | Zenity Claude Moves to the Darkside: What a Rogue Coding Agent Could Do Inside Your Org Greg Zemlin Tamir Ishay Sharbat \u2022 Nov 15, 2025 On November 13, 2025, Anthropic disclosed the first known case of an AI agent orchestrating a broad-scale cyberattack with minimal human input. The Chinese state-sponsored threat actor GTG-1002 weaponized Claude Code to carry out over 80% of a sophisticated cybe..."
+  },
+  {
+    "id": "bb6d52b0-9ef3-4337-89ad-b4e6a450a677",
+    "title": "NVIDIA NeMo Vulnerability Report",
+    "url": "https://hiddenlayer.com/sai-security-advisory/2024-10-nvidia/",
+    "source_website_id": "12f93447-0722-4d89-8df2-2e9e8a0d1211",
+    "scan_date": "2025-12-05T12:04:21.744985",
+    "analysis": {
+      "summary": "A vulnerability in NVIDIA NeMo allows for arbitrary file write due to unsafe extraction of NeMo archives. Specifically, the `_unpack_nemo_file` function in the `SaveRestoreConnector` class uses `tarfile.extractall()` in an unsafe manner, enabling path traversal when loading a maliciously crafted model.",
+      "attack_vectors": [
+        "Maliciously crafted tar archive containing a file with a relative path",
+        "Loading a NeMo model from a compromised archive"
+      ],
+      "vulnerabilities": [
+        "CVE-2024-0129",
+        "CWE-22: Improper Limitation of a Pathname to a Restricted Directory (\u2018Path Traversal\u2019)"
+      ],
+      "affected_components": [
+        "NVIDIA NeMo versions prior to r2.0.0rc0",
+        "SaveRestoreConnector class",
+        "_unpack_nemo_file function (/nemo/core/connectors/save_restore_connector.py)"
+      ],
+      "impact_level": "Medium",
+      "technical_details": "The vulnerability lies in the `_unpack_nemo_file` function, which uses `tarfile.extractall()` without proper sanitization of file paths within the archive. An attacker can create a tar archive containing files with relative paths (e.g., `../../../../tmp/evil.txt`). When this archive is loaded using the `SaveRestoreConnector.restore_from` function, the `tarfile.extractall()` function extracts the file to the specified path, bypassing intended directory restrictions and allowing arbitrary file write outside of the intended NeMo model directory. The CVSS score is 6.3 (AV:L/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:L).",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "NVIDIA NeMo Vulnerability Report | HiddenLayer | Security for AI Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Te..."
+  },
+  {
+    "id": "de86d652-885f-4e95-88a8-1a7010e01477",
+    "title": "Backdooring AI File Formats",
+    "url": "https://blog.huntr.com/a-technical-deep-dive-backdooring-ai-model-file-formats",
+    "source_website_id": "e1767d17-8541-492c-9873-834dd4a13606",
+    "scan_date": "2025-12-05T12:04:21.744991",
+    "analysis": {
+      "summary": "This blog post discusses the potential security vulnerabilities in AI model file formats, focusing on backdooring techniques. It highlights the risks associated with .llamafile, Keras, and serialized pickle files, and provides a case study of a .llamafile backdooring discovery by retr0reg.",
+      "attack_vectors": [
+        "Backdooring .llamafile binaries",
+        "Pickle deserialization attacks",
+        "Keras model vulnerabilities (lack of integrity checks)",
+        "Manipulating static code segments in .llamafile",
+        "Improper input validation in model file loading",
+        "File structure manipulation (ELF/APE)",
+        "Memory management flaws (heap overflows)",
+        "File parsing flaws (GGUF)",
+        "Metadata manipulation"
+      ],
+      "vulnerabilities": [
+        "Remote Code Execution (RCE)",
+        "Memory overflow",
+        "Improper validation",
+        "Arbitrary code execution via pickle deserialization",
+        "Lack of integrity checks in Keras models",
+        "Code injection into static .llamafile segments",
+        "Heap overflows in GGUF due to improper parsing"
+      ],
+      "affected_components": [
+        ".llamafile",
+        "Keras (TensorFlow)",
+        "Pickle (Python)",
+        "APE (Actually Portable Executable)",
+        "ELF (Executable and Linkable Format)",
+        "GGUF"
+      ],
+      "impact_level": "High",
+      "technical_details": "The primary technical detail revolves around injecting malicious payloads into constant regions of model files, specifically .llamafile, without breaking the file's integrity. This is achieved by exploiting the APE structure and manipulating static code segments. The injected payload can then be executed during the model's initialization phase, bypassing typical security checks. Other vulnerabilities include exploiting pickle deserialization, Keras model integrity issues, and memory management flaws during file parsing.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "A Technical Deep Dive: Backdooring AI Model File Formats - Huntr | Blog Bounties Partners Community Hacktivity Leaderboard Blog Beginner's Guide Info Guidelines FAQ Discord Contact us SUBMIT REPORT By logging in you agree to our terms of service . Bounties Find your next target Submission Find\n                                                your next target Hacktivity Browse public reports Blog Find your next target Leaderboard Top huntrs Guidelines Beginner's Guide Discord FAQ Contact Us LOGIN*..."
+  },
+  {
+    "id": "a14e8f5c-6907-4481-bc3f-3cf310d9b937",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/we-scanned-1-000-mcp-servers-33-had-critical-vulnerabilities",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.744998",
+    "analysis": {
+      "summary": "Enkrypt AI scanned 1,000 MCP servers and found that 33% had critical vulnerabilities. The company also highlights the limitations of traditional DLP solutions in protecting against data leakage into AI models, emphasizing the need for AI-specific security measures like auditing AI interactions and red teaming.",
+      "attack_vectors": [
+        "Data leakage into AI models via prompts",
+        "Data leakage into AI models via embeddings",
+        "Data leakage into AI models via agent actions",
+        "Emerging AI threats"
+      ],
+      "vulnerabilities": [
+        "Critical vulnerabilities in MCP Servers (33% of scanned servers)",
+        "OWASP LLM Top 10 vulnerabilities"
+      ],
+      "affected_components": [
+        "MCP Servers",
+        "AI models",
+        "AI-enabled applications",
+        "Healthcare payer AI systems"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The article highlights that traditional DLP solutions are ineffective against new attack vectors specific to AI models. These include data leakage through prompts, embeddings, and agent actions. The findings suggest a need for continuous AI red teaming, automated risk detection, and compliance monitoring to secure AI-enabled applications against emerging threats and ensure responsible AI adoption, especially in sensitive sectors like healthcare.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "We Scanned 1,000 MCP Servers: 33% Had Critical Vulnerabilities | Enkrypt AI MCP Scanner | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s C..."
+  },
+  {
+    "id": "51dc9f57-66c2-4de5-8f7c-d9e9c1281ba7",
+    "title": "Nov 19, 2025Tools of the Trade0-click indirect prompt injection with tool use - a look through attribution graphs",
+    "url": "https://labs.zenity.io/p/tools-of-the-trade",
+    "source_website_id": "f305fbd9-2884-4834-a508-8a02567adb38",
+    "scan_date": "2025-12-05T12:04:21.745003",
+    "analysis": {
+      "summary": "This article details a zero-click indirect prompt injection attack targeting AI agent systems that utilize tools. The attack involves injecting malicious instructions into data retrieved by the agent from external sources (e.g., Amazon reviews, emails) without requiring any user interaction. The injected instructions then cause the agent to call another tool with malicious intent, such as sending unauthorized emails or performing financial transactions.",
+      "attack_vectors": [
+        "Zero-click indirect prompt injection",
+        "Prompt injection via tool use",
+        "Malicious data injection into tool responses",
+        "Exploitation of in-context learning",
+        "Tool parameter manipulation"
+      ],
+      "vulnerabilities": [
+        "Lack of proper input sanitization in tool responses",
+        "Over-reliance on tool responses without validation",
+        "Susceptibility to prompt injection due to prompt structure",
+        "Vulnerability to prompt injection due to simplicity of tool response format (JSON)",
+        "Lack of separation between tool responses and assistant responses"
+      ],
+      "affected_components": [
+        "AI agent systems with tool use capabilities",
+        "Large Language Models (LLMs) such as Qwen3-1.7B",
+        "EvernoteManagerSearchNotes tool",
+        "AmazonViewSavedAddresses tool",
+        "GmailSendEmail tool",
+        "WebBrowserNavigateTo tool"
+      ],
+      "impact_level": "High",
+      "technical_details": "The attack leverages the agent's ability to call tools and process their responses. By injecting malicious instructions into the response of a legitimate tool (e.g., Evernote search), the attacker can trick the agent into calling another tool (e.g., GmailSendEmail) to perform unauthorized actions. The success of the attack depends on factors such as the simplicity of the tool's response format, the phrasing of the injected instructions, and the prompt structure used by the agent. The article also explores how different prompt formats and tool presentation methods can affect the success rate of the injection.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Tools of the Trade 0 0 Zenity Labs Posts Tools of the Trade Tools of the Trade 0-click indirect prompt injection with tool use - a look through attribution graphs Max Fomin November 19, 2025 This is the 2nd post of the series. If you\u2019ve joined just now, I highly recommend to start from #1: Interpreting Jailbreaks and Prompt Injections with Attribution Graphs This is a LONG technical post. In a hurry and only want the conclusions? Check out the \"Recap\u201d sections and then jump to the takeaways (or ..."
+  },
+  {
+    "id": "c611abb5-dc98-48e2-b00a-a536cdd3cbb2",
+    "title": "GGUF File Format Vulnerabilities",
+    "url": "https://blog.huntr.com/gguf-file-format-vulnerabilities-a-guide-for-hackers",
+    "source_website_id": "e2c47b13-7be0-460d-923e-c343fc4e731d",
+    "scan_date": "2025-12-05T12:04:21.745008",
+    "analysis": {
+      "summary": "The article discusses critical vulnerabilities discovered in the GGUF file format, which is used for storing machine learning model weights, particularly in the GGML library. These vulnerabilities, discovered by retr0reg, include heap overflows and memory corruption due to insufficient validation of key-value pairs, string lengths, and tensor counts during file parsing. The article encourages security researchers to hunt for similar vulnerabilities in other model file formats, offering increased bounties for such findings.",
+      "attack_vectors": [
+        "Malicious GGUF file",
+        "Heap overflow",
+        "Memory corruption",
+        "Arbitrary code execution"
+      ],
+      "vulnerabilities": [
+        "Heap Overflow in Key-Value Parsing",
+        "Unchecked String Lengths",
+        "Tensor Count Overflow"
+      ],
+      "affected_components": [
+        "GGUF file format",
+        "GGML library",
+        "Llama-2 (potentially)",
+        "gguf_init_from_file() function",
+        "gguf_fread_str() function"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The GGUF file format lacks proper validation of input values such as the number of key-value pairs (n_kv), string lengths, and tensor counts. This allows an attacker to craft a malicious GGUF file with excessively large values, leading to heap overflows during memory allocation. Specifically, when the library allocates memory based on these unchecked values, it can result in allocation wraparound, overwriting adjacent memory and potentially allowing arbitrary code execution on the victim's machine.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "GGUF File Format Vulnerabilities: A Guide for Hackers - Huntr | Blog Bounties Partners Community Hacktivity Leaderboard Blog Beginner's Guide Info Guidelines FAQ Discord Contact us SUBMIT REPORT By logging in you agree to our terms of service . Bounties Find your next target Submission Find\n                                                your next target Hacktivity Browse public reports Blog Find your next target Leaderboard Top huntrs Guidelines Beginner's Guide Discord FAQ Contact Us LOGIN* By..."
+  },
+  {
+    "id": "6931539c-7864-4d7b-8e2c-a586683dc678",
+    "title": "Novel Universal Bypass for All Major LLMs",
+    "url": "https://hiddenlayer.com/innovation-hub/novel-universal-bypass-for-all-major-llms/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745013",
+    "analysis": {
+      "summary": "HiddenLayer researchers have developed a novel prompt injection technique called 'Policy Puppetry' that can universally bypass safety guardrails and instruction hierarchies across all major LLMs. This technique combines policy manipulation with roleplaying and encoding to generate harmful content, including CBRN threats, violence, self-harm, and system prompt leakage.",
+      "attack_vectors": [
+        "Prompt Injection",
+        "Policy Puppetry Attack",
+        "Roleplaying",
+        "Encoding (e.g., leetspeak)",
+        "System Prompt Bypassing",
+        "System Prompt Extraction"
+      ],
+      "vulnerabilities": [
+        "Systemic weakness in how LLMs are trained on instruction or policy-related data",
+        "Reliance on RLHF (Reinforcement Learning from Human Feedback) for model alignment"
+      ],
+      "affected_components": [
+        "OpenAI (ChatGPT 4o, 4o-mini, 4.1, 4.5, o3-mini, and o1)",
+        "Google (Gemini 1.5, 2.0, and 2.5)",
+        "Microsoft (Copilot)",
+        "Anthropic (Claude 3.5 and 3.7)",
+        "Meta (Llama 3 and 4 families)",
+        "DeepSeek (V3 and R1)",
+        "Qwen (2.5 72B)",
+        "Mistral (Mixtral 8x22B)"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The Policy Puppetry attack works by crafting prompts that mimic policy files (e.g., XML, INI, JSON), tricking the LLM into subverting its safety alignments and system prompts. This is often combined with roleplaying and encoding techniques like leetspeak to further obfuscate the harmful intent. The attack exploits a weakness in how LLMs are trained on policy-related data, making it difficult to patch and allowing for the generation of harmful content and extraction of system prompts.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Novel Universal Bypass for All Major LLMs Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innov..."
+  },
+  {
+    "id": "0934fbf6-9b87-44f4-95d3-399185a6478d",
+    "title": "MCP: Model Context Pitfalls in an Agentic World",
+    "url": "https://hiddenlayer.com/innovation-hub/mcp-model-context-pitfalls-in-an-agentic-world/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745017",
+    "analysis": {
+      "summary": "This research explores security vulnerabilities in the Model Context Protocol (MCP), a new protocol enabling AI systems to interact with external tools and data sources. It identifies several risks, including permission management issues, indirect prompt injection leading to 'inadvertent double agents', combinations of MCP servers enabling complex exploits, and tool name typosquatting.",
+      "attack_vectors": [
+        "Indirect prompt injection",
+        "Tool name typosquatting",
+        "Exploiting combinations of MCP servers",
+        "Malicious commands hidden in shared documents",
+        "Leaking files by combining multiple tools",
+        "Replacing trusted tools with lookalike tools"
+      ],
+      "vulnerabilities": [
+        "Inadequate permission management in MCP implementations",
+        "Lack of user approval mechanisms for tool usage changes",
+        "Arbitrary code execution via vulnerable MCP servers",
+        "Vulnerability to indirect prompt injection attacks",
+        "Tool name collision and hijacking due to typosquatting",
+        "Overly permissive tool permissions granted by users"
+      ],
+      "affected_components": [
+        "Model Context Protocol (MCP)",
+        "MCP servers",
+        "MCP clients",
+        "OpenAI Agent SDK",
+        "Microsoft Copilot Studio",
+        "Amazon Bedrock Agents",
+        "Claude Desktop",
+        "Claude Code",
+        "Various MCP server integrations (e.g., Google Suite, Jira, Supabase, YouTube, Terminal, Postgres)",
+        "Brave Search",
+        "Fetch servers",
+        "GitHub",
+        "GitLab"
+      ],
+      "impact_level": "High",
+      "technical_details": "The research highlights that MCP's reliance on tool permissions, combined with the potential for indirect prompt injection, creates significant security risks. Attackers can exploit vulnerabilities in permission management to execute malicious commands, leak sensitive data, or hijack tool functionality. The ability to combine multiple MCP servers to perform complex tasks further amplifies these risks, as attackers can leverage the permissions granted to different tools to achieve their objectives. Tool name typosquatting allows attackers to replace legitimate tools with malicious ones, potentially redirecting sensitive operations to attacker-controlled servers.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "MCP: Model Context Pitfalls in an Agentic World Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn..."
+  },
+  {
+    "id": "6f05e762-d70d-4cd2-99dd-e442aae98437",
+    "title": "DeepSh*t: Exposing the Security Risks of DeepSeek-R1",
+    "url": "https://hiddenlayer.com/innovation-hub/deepsht-exposing-the-security-risks-of-deepseek-r1/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745023",
+    "analysis": {
+      "summary": "This research analyzes the security risks associated with deploying DeepSeek-R1, a new open-weights reasoning model. It highlights potential vulnerabilities related to data security, legal compliance, model robustness, and infrastructure integrity. The research uses automated red teaming and model genealogy tooling to evaluate the model and urges caution in its rapid adoption.",
+      "attack_vectors": [
+        "Jailbreak techniques (DAN 9.0, EvilBot, STAN)",
+        "Prompt injection",
+        "Glitch tokens",
+        "Exploitation of control tokens",
+        "Chain-of-Thought Forging",
+        "Context Manipulation"
+      ],
+      "vulnerabilities": [
+        "Information leakage through Chain-of-Thought reasoning",
+        "Censorship and misaligned outputs based on language",
+        "Susceptibility to old jailbreak techniques",
+        "Potential for malicious code execution via trust_remote_code=True",
+        "Questionable data sourcing and potential copyright infringement",
+        "Denial-of-service attack vulnerability on DeepSeek infrastructure",
+        "Data exposure on DeepSeek infrastructure"
+      ],
+      "affected_components": [
+        "DeepSeek-R1 model",
+        "DeepSeek infrastructure",
+        "HuggingFace repository",
+        "Downstream applications using DeepSeek-R1",
+        "Models distilled from DeepSeek-R1 (e.g., Qwen2-based models)",
+        "SGLang"
+      ],
+      "impact_level": "High",
+      "technical_details": "DeepSeek-R1 exhibits vulnerabilities stemming from its architecture and training data. The model is susceptible to various prompt injection and jailbreak attacks, indicating a lack of robustness compared to other modern LLMs. The Chain-of-Thought reasoning process can lead to unintended information leakage, and the model's reliance on specific control tokens opens avenues for exploitation. Furthermore, the need to enable `trust_remote_code=True` for local deployment introduces the risk of arbitrary code execution. The model's training data also raises concerns about potential copyright infringement and CCP-aligned censorship.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "DeepSh*t: Exposing the Security Risks of DeepSeek-R1 Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services ..."
+  },
+  {
+    "id": "df977d4e-9e10-48ed-b71b-2bb75837b410",
+    "title": "ShadowLogic",
+    "url": "https://hiddenlayer.com/innovation-hub/shadowlogic/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745028",
+    "analysis": {
+      "summary": "The HiddenLayer SAI team discovered a novel method called 'ShadowLogic' for creating backdoors in neural network models by manipulating the model's computational graph. This technique allows attackers to implant codeless, surreptitious backdoors that persist through fine-tuning, enabling them to hijack foundation models and trigger attacker-defined behavior when a specific input trigger is received.",
+      "attack_vectors": [
+        "Backdoor implantation via manipulation of the computational graph",
+        "Trigger-based activation of malicious behavior",
+        "AI Supply Chain Attack",
+        "Model Hijacking"
+      ],
+      "vulnerabilities": [
+        "Lack of integrity checks on computational graphs",
+        "Susceptibility of pre-trained models to backdoor implantation",
+        "Persistence of backdoors through fine-tuning"
+      ],
+      "affected_components": [
+        "Neural network models (any modality)",
+        "ResNet architecture",
+        "YOLO architecture",
+        "Phi-3 architecture",
+        "ONNX format",
+        "TensorFlow",
+        "CoreML",
+        "OpenVINO"
+      ],
+      "impact_level": "High",
+      "technical_details": "The ShadowLogic attack involves modifying the computational graph of a neural network to insert a backdoor. This backdoor is activated by a specific trigger in the input data, such as a red pixel in an image or a keyword in text. When the trigger is present, the backdoor overrides the model's normal logic and forces it to produce an attacker-defined output. The attack leverages the fact that computational graphs can be manipulated without requiring retraining or fine-tuning of the model, and the backdoors persist even after fine-tuning.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "ShadowLogic Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Re..."
+  },
+  {
+    "id": "057318eb-6e82-4b6c-9e98-f08b9e0d2561",
+    "title": "The Lethal Trifecta and How to Defend Against It",
+    "url": "https://hiddenlayer.com/innovation-hub/the-lethal-trifecta-and-how-to-defend-against-it/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745032",
+    "analysis": {
+      "summary": "HiddenLayer's research highlights the 'Lethal Trifecta' in AI security, consisting of access to private data, exposure to untrusted content, and the ability to communicate externally. This trifecta, amplified by agentic AI, Model Context Protocol (MCP), and LLM ecosystems, creates significant risks of data exfiltration and unauthorized actions through prompt injection and other indirect attacks. The research emphasizes the need for runtime security measures to inspect and control AI decision-making.",
+      "attack_vectors": [
+        "Prompt Injection",
+        "Indirect Attacks",
+        "Context Poisoning",
+        "Data Exfiltration",
+        "Adversarial Manipulation",
+        "Model Theft",
+        "Supply Chain Compromise"
+      ],
+      "vulnerabilities": [
+        "Lack of real-time monitoring of AI reasoning and actions",
+        "Unvalidated provenance and intent of content",
+        "Hidden or obfuscated instructions in content",
+        "Unchecked connections between AI agents and external systems",
+        "Vulnerabilities in Model Context Protocol (MCP)",
+        "Lack of AI Guardrails",
+        "Lack of AI Firewall",
+        "Lack of AI Detection & Response"
+      ],
+      "affected_components": [
+        "Agentic AI systems",
+        "Large Language Models (LLMs)",
+        "Model Context Protocol (MCP)",
+        "AI code-based assistants (e.g., Cursor)",
+        "Enterprise AI ecosystems",
+        "AI Supply Chain"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The 'Lethal Trifecta' allows attackers to exploit AI systems by injecting malicious instructions through untrusted content. This content can then manipulate the AI to access and exfiltrate private data or perform unauthorized actions via external communication channels. The risk is amplified in enterprise environments where agentic AI, MCP, and LLMs create complex workflows and data flows, making it difficult to detect and prevent attacks using traditional security measures. Runtime security solutions are needed to inspect AI decision-making in real-time and enforce trust boundaries.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "How the Lethal Trifecta Expose Agentic AI Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innov..."
+  },
+  {
+    "id": "e3d2c880-da81-4ce8-887b-69fd0b05f867",
+    "title": "Cross-site Request Forgery in ClearML Server",
+    "url": "https://hiddenlayer.com/sai-security-advisory/not-so-clear-how-mlops-solutions-can-muddy-the-waters-of-your-supply-chain/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745037",
+    "analysis": {
+      "summary": "HiddenLayer researchers discovered six 0-day vulnerabilities in the ClearML MLOps platform, including the client and server components. These vulnerabilities range from pickle loading issues to credential storage in plaintext, potentially allowing attackers to compromise ClearML servers and deploy malicious payloads to unsuspecting users.",
+      "attack_vectors": [
+        "Pickle Load on Artifact Get",
+        "Path Traversal on File Download",
+        "Improper Auth Leading to Arbitrary Read-Write Access",
+        "Cross-Site Request Forgery (CSRF)",
+        "Cross-Site Scripting (XSS)",
+        "Plaintext credential access via MongoDB"
+      ],
+      "vulnerabilities": [
+        "CVE-2024-24590",
+        "CVE-2024-24591",
+        "CVE-2024-24592",
+        "CVE-2024-24593",
+        "CVE-2024-24594",
+        "CVE-2024-24595"
+      ],
+      "affected_components": [
+        "ClearML Python Package (SDK)",
+        "ClearML API Server",
+        "ClearML Web Server",
+        "ClearML Fileserver",
+        "ClearML MongoDB Instance"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The vulnerabilities in ClearML allow for a multi-stage attack. An attacker can exploit the lack of authentication on the fileserver to upload malicious files. CSRF can be used to add an attacker-controlled user to a workspace. XSS can be used to propagate the attack to other users. The pickle loading vulnerability allows for arbitrary code execution on a user's machine when they download a malicious artifact. Finally, if an attacker gains access to the server, they can retrieve plaintext credentials from the MongoDB instance, potentially compromising other accounts.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Credentials Stored in Plaintext in MongoDB Instance | HiddenLayer | Security for AI Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finance Public Sector Tech Services Learn Innovation Hub Insights Research Reports and Guides SAI Security Advisory Partner Go-To-Market Partner Technology Alliance Apply Company About In the News Book a Demo Platform AISec Platform Automated Red Teaming for AI AI Detection & Response Model Scanner Solutions Finan..."
+  },
+  {
+    "id": "b084426a-92ae-4eff-a567-cebe754c9819",
+    "title": "One Prompt Can Bypass Every Major LLM\u2019s Safeguards",
+    "url": "https://hiddenlayer.com/innovation-hub/one-prompt-can-bypass-every-major-llms-safeguards/",
+    "source_website_id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "scan_date": "2025-12-05T12:04:21.745042",
+    "analysis": {
+      "summary": "HiddenLayer researchers discovered a universal prompt injection technique called \"Policy Puppetry\" that bypasses safety mechanisms in major LLMs. This technique uses policy-like prompts, leetspeak, and fictional scenarios to manipulate models into generating harmful content and even revealing their system prompts.",
+      "attack_vectors": [
+        "Prompt Injection",
+        "Policy Puppetry",
+        "Leetspeak encoding",
+        "Fictional roleplay scenarios",
+        "System prompt extraction"
+      ],
+      "vulnerabilities": [
+        "Inability of LLMs to distinguish between story and instruction when alignment cues are subverted",
+        "Vulnerability rooted in the model's training data",
+        "Superficial filtering and overly simplistic guardrails",
+        "Reliance on RLHF as a sole security mechanism"
+      ],
+      "affected_components": [
+        "OpenAI's ChatGPT (o1 through 4o)",
+        "Google's Gemini family",
+        "Anthropic's Claude",
+        "Microsoft's Copilot",
+        "Meta's LLaMA 3 and 4",
+        "DeepSeek",
+        "Qwen",
+        "Mistral"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The Policy Puppetry attack leverages a crafted prompt, often resembling XML or JSON, to trick the LLM into interpreting malicious commands as legitimate system instructions. This is often combined with leetspeak and fictional scenarios to evade detection. The attack can extract the LLM's system prompt, exposing sensitive directives and safety constraints. The vulnerability is deeply rooted in the model's training data, making it difficult to fix with simple code patches.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "One Prompt Can Bypass Every Major LLM\u2019s Safeguards Innovation Enterprise Tech One Prompt Can Bypass Every Major LLM\u2019s Safeguards By Tony Bradley , Senior Contributor. Forbes contributors publish independent expert analyses and insights. Tony Bradley covers the intersection of tech and entertainment. Follow Author Apr 24, 2025, 09:21am EDT Share Save Comment A single prompt can now unlock dangerous outputs from every major AI model\u2014exposing a universal flaw in the foundations of LLM safety. getty..."
+  },
+  {
+    "id": "8323827d-dda9-4ccf-8628-398da9efcf3d",
+    "title": "AgentFlayer",
+    "url": "https://www.zenity.io/research/agentflayer-vulnerabilities",
+    "source_website_id": "27b26ceb-ef30-49d3-b498-d004c16843b4",
+    "scan_date": "2025-12-05T12:04:21.745047",
+    "analysis": {
+      "summary": "Zenity Labs' research, named AgentFlayer, exposes 0-click exploit methods against popular enterprise AI agents, leading to unauthorized access, data exfiltration, memory manipulation, and control of conversations.",
+      "attack_vectors": [
+        "Hijacking ChatGPT sessions using only an email address",
+        "Extraction of CRM data from Microsoft Copilot Studio",
+        "Tool misuse by triggering malicious agent behavior remotely in Microsoft Copilot Studio",
+        "Compromising developer environments and extracting credentials via Cursor + Jira integration",
+        "Hijacking Salesforce Einstein sessions and rerouting customer communications through malicious email addresses",
+        "Manipulating Google Gemini responses by embedding malicious prompts in emails or calendar invites",
+        "Hijacking Microsoft 365 Copilot behavior via Teams messages and invisible prompt injections in shared docs",
+        "Exfiltrating past chats from Microsoft 365 Copilot",
+        "Impersonating trusted insiders using Microsoft 365 Copilot"
+      ],
+      "vulnerabilities": [
+        "0-click exploits",
+        "Lack of user input validation",
+        "Vulnerable integrations (e.g., Cursor + Jira)",
+        "Prompt injection vulnerabilities",
+        "Session hijacking"
+      ],
+      "affected_components": [
+        "ChatGPT",
+        "Microsoft Copilot Studio",
+        "Salesforce Einstein",
+        "Google Gemini",
+        "Microsoft 365 Copilot",
+        "Cursor + Jira integration"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The research demonstrates full attack chains against enterprise AI platforms, exploiting the agents' own capabilities without user interaction in several scenarios. Attackers leverage vulnerabilities like prompt injection, session hijacking, and insecure integrations to gain unauthorized access, manipulate agent behavior, exfiltrate sensitive data, and compromise organizational boundaries. The 0-click nature of some exploits significantly increases the risk, as no user action is required to initiate the attack.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AI Agent Security | AgentFlayer: The 0Click Threat to AI Assistants & Agents | Zenity AgentFlayer: 0Click Exploit Methods Zenity Labs\u2019 latest research exposes how attackers can compromise these AI agents through 0click (no user interaction) exploits. The results? Unauthorized access, data exfiltration, memory manipulation, and even control of conversations. Access the Research Continue the Conversation at the AI Agent Security Summit 2025 Join leading researchers, CISOs, and security engineers a..."
+  },
+  {
+    "id": "b567b826-1820-4ceb-a5f0-bda8db30968a",
+    "title": "Marina SimakovZenity Labs & MITRE ATLAS Collaborate to Advance AI Agent Security with the First Release of Agent-Focused TTPsTL;DR\n\nZenity Labs worked in collaboration with MITRE ATLAS to incorporate the first 14 agent-focused techniques...Current Events",
+    "url": "https://www.zenity.io/blog/current-events/zenity-labs-and-mitre-atlas-collaborate-to-advances-ai-agent-security-with-the-first-release-of",
+    "source_website_id": "27b26ceb-ef30-49d3-b498-d004c16843b4",
+    "scan_date": "2025-12-05T12:04:21.745052",
+    "analysis": {
+      "summary": "Zenity Labs and MITRE ATLAS collaborated to expand the MITRE ATLAS framework to include AI agent-specific attack techniques and subtechniques. This update incorporates 14 new techniques from Zenity's AI Agents Attack Matrix, focusing on the unique risks posed by autonomous AI agents.",
+      "attack_vectors": [
+        "AI Agent Context Poisoning",
+        "Memory Manipulation",
+        "Thread Manipulation",
+        "Modify AI Agent Configuration",
+        "RAG Credential Harvesting",
+        "Credentials from AI Agent Configuration",
+        "Discover AI Agent Configuration",
+        "Embedded Knowledge Discovery",
+        "Tool Definitions Discovery",
+        "Activation Triggers Discovery",
+        "Data from AI Services",
+        "RAG Databases Access",
+        "AI Agent Tools Access",
+        "Exfiltration via AI Agent Tool Invocation"
+      ],
+      "vulnerabilities": [
+        "Misconfigured AI agents",
+        "Manipulation of AI agent context",
+        "Exploitation of AI agent capabilities",
+        "Insecure storage of credentials in RAG databases or agent configurations",
+        "Lack of access control on AI agent tools and data sources",
+        "Vulnerable activation triggers"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "AI Agents",
+        "RAG (Retrieval Augmented Generation) databases",
+        "AI Agent Configuration Files",
+        "AI-enabled services",
+        "AI Agent Tools"
+      ],
+      "impact_level": "High",
+      "technical_details": "Adversaries can exploit AI agents by manipulating their context, memory, or configuration to influence their behavior and actions. This includes poisoning the agent's knowledge base, harvesting credentials from RAG databases or agent configurations, discovering accessible tools and data sources, and exfiltrating data through tool invocation. These techniques allow attackers to gain access to sensitive information, modify system configurations, and potentially orchestrate broader attacks by leveraging the agent's capabilities and access to internal systems.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Zenity & MITRE ATLAS Expand AI Agent Attack Coverage Zenity Labs & MITRE ATLAS Collaborate to Advance AI Agent Security with the First Release of Agent-Focused TTPs M Marina Simakov \u2022 Oct 21, 2025 TL;DR Zenity Labs worked in collaboration with MITRE ATLAS to incorporate the first 14 agent-focused techniques and subtechniques, extending the framework beyond LLM threats to cover the unique risks posed by AI agents. Zenity\u2019s Expertise with AI Agents At Zenity, we specialize in securing AI agents. O..."
+  },
+  {
+    "id": "a69a18e5-3ebf-4ac1-aced-c7c4928fcd03",
+    "title": "Lana SalamehInside the Agent Stack: Securing Azure AI Foundry-Built AgentsThis blog kicks off our new series, Inside the Agent Stack, where we take you behind the scenes of today\u2019s most...Research",
+    "url": "https://www.zenity.io/blog/research/inside-the-agent-stack-securing-azure-ai-foundry-built-agents",
+    "source_website_id": "27b26ceb-ef30-49d3-b498-d004c16843b4",
+    "scan_date": "2025-12-05T12:04:21.745057",
+    "analysis": {
+      "summary": "This article discusses the security risks associated with AI agents built on platforms like Microsoft Foundry (formerly Azure AI Foundry). It highlights a real-world attack scenario involving prompt injection that leads to data exfiltration from a customer support agent. The article emphasizes the importance of a defense-in-depth approach to secure AI agents throughout their lifecycle, including visibility, governance, threat detection, automated response, and inline prevention.",
+      "attack_vectors": [
+        "Prompt Injection",
+        "Data Exfiltration",
+        "Tool Misuse",
+        "Bypassing Content Filtering",
+        "Jailbreak Attacks"
+      ],
+      "vulnerabilities": [
+        "Lack of robust input validation in AI agents",
+        "Insufficiently restrictive access controls for AI agent tools and data sources",
+        "Bypassable prompt shields and content filtering mechanisms",
+        "Failure to adhere to the 'Rule of Two' for AI agent security (untrusted input, access to sensitive data, data transmission)"
+      ],
+      "affected_components": [
+        "Microsoft Foundry (formerly Azure AI Foundry)",
+        "Azure Logic Apps",
+        "Customer Support Agents",
+        "LLM models",
+        "Salesforce CRM",
+        "Email connectors (e.g., Outlook connector)"
+      ],
+      "impact_level": "High",
+      "technical_details": "The article details a prompt injection attack where a malicious user crafts an email that, when processed by the customer support agent, causes the agent to reveal sensitive data from the Salesforce CRM and exfiltrate it to the attacker's email. This is achieved by exploiting the agent's access to data sources and tools (like the 'send email' action) and bypassing the platform's built-in content filtering. The attack leverages the agent's workflow, which is implemented as an Azure Logic App, to execute unintended actions.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Securing Azure AI Foundry-Built Agents Inside the Agent Stack: Securing Azure AI Foundry-Built Agents Lana Salameh \u2022 Nov 20, 2025 This blog kicks off our new series, Inside the Agent Stack , where we take you behind the scenes of today\u2019s most widely adopted AI agent platforms and show you what it really takes to secure them. Each installment will dissect a specific platform, expose realistic attack paths, and share proven strategies that help organizations keep their AI agents safe, reliable, an..."
+  },
+  {
+    "id": "b7c366cd-b783-43c3-a070-98c8beac6fda",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/small-models-big-problems-why-your-ai-agents-might-be-sitting-ducks",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745062",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the security risks associated with AI models, particularly focusing on data leakage and the inadequacy of traditional DLP solutions in the context of AI. They emphasize the need for AI red teaming, continuous risk detection, and compliance monitoring to secure AI-enabled applications. They also announce the launch of their MCP Scanner and recognition as a Gartner Cool Vendor.",
+      "attack_vectors": [
+        "Data leakage into AI models",
+        "Prompt injection (implied)",
+        "Embedding manipulation (implied)",
+        "Agent actions (malicious or unintended)",
+        "Emerging AI threats"
+      ],
+      "vulnerabilities": [
+        "Inadequate traditional DLP solutions for AI",
+        "Lack of auditing of AI interactions",
+        "Insufficient compliance measures for AI",
+        "Document-centric security limitations"
+      ],
+      "affected_components": [
+        "Small Language Models (SLMs)",
+        "AI Agents",
+        "MCP Servers",
+        "AI-enabled applications",
+        "Healthcare payer AI systems"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP solutions are ineffective against AI-specific attack vectors because they primarily focus on document-centric security. They fail to address the risks associated with prompts, embeddings, and agent actions, which can lead to data leakage and other security breaches. The article advocates for continuous AI red teaming, automated risk detection, and compliance monitoring as necessary measures to secure AI-enabled applications.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "The Hidden Risks of Small Language Models in AI Agents | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident and OWASP\u00e2\u0080\u0099s LLM..."
+  },
+  {
+    "id": "96682b80-0609-4197-a772-92c295594e1d",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/ai-agent-security-indirect-prompt-injection",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745068",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the risks of data leakage into AI models due to the inadequacy of traditional DLP solutions. They emphasize the need for AI-specific security measures, including auditing AI interactions, rethinking compliance, and moving beyond document-centric security. They also announce the launch of their MCP Scanner and their recognition by Gartner and Forrester.",
+      "attack_vectors": [
+        "Indirect Prompt Injection",
+        "Data leakage into AI models"
+      ],
+      "vulnerabilities": [
+        "Inadequate traditional DLP solutions for AI security",
+        "Classic security controls missing prompts, embeddings, and agent actions"
+      ],
+      "affected_components": [
+        "AI models",
+        "Large Language Models (LLMs)",
+        "MCP Servers"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP solutions are ineffective against AI-specific threats because they primarily focus on document-centric security. They fail to detect and prevent data leakage through prompts, embeddings, and agent actions, leaving AI models vulnerable to indirect prompt injection and other data exfiltration techniques. This necessitates a shift towards AI-aware security controls that can monitor and govern AI interactions effectively.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AI Agent Security: Indirect Prompt Injection Risks and Defenses | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident and OWAS..."
+  },
+  {
+    "id": "80f5b2aa-4c85-4c8d-b96e-66ce8a6abb0d",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/defending-against-sponge-attacks-in-genai-applications",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745073",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the limitations of traditional DLP solutions in protecting against data leakage into AI models and promotes its AI security solutions, including continuous AI red teaming, automated risk detection, and compliance monitoring. They address threats like AI DoS & Sponge Attacks and emphasize the need to audit AI interactions and rethink compliance in light of incidents like Samsung's ChatGPT incident and OWASP's LLM Top 10.",
+      "attack_vectors": [
+        "AI DoS",
+        "Sponge Attacks",
+        "Data leakage into AI models",
+        "Prompt injection (implied)",
+        "Embedding exploitation (implied)",
+        "Agent action manipulation (implied)"
+      ],
+      "vulnerabilities": [
+        "Inadequate protection against data leakage by legacy DLP tools",
+        "Lack of auditing of AI interactions",
+        "Insufficient compliance monitoring for AI-enabled applications"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP Server (potentially vulnerable, based on the MCP Scanner launch)",
+        "Traditional Data Loss Prevention (DLP) systems"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP systems are ineffective against data leakage into AI models because they are document-centric and fail to monitor prompts, embeddings, and agent actions. This allows sensitive data to be extracted or manipulated through AI interactions, leading to potential security breaches and compliance violations. Enkrypt AI proposes continuous AI red teaming and automated risk detection to address these emerging threats.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Proactive Defense Against AI DoS & Sponge Attacks - Enkrypt AI  | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident and OWAS..."
+  },
+  {
+    "id": "5aa37cde-63a5-49ad-aef8-ffff1437d3ae",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/ai-agent-security-vulnerabilities-tool-name-exploitation",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745078",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the limitations of traditional DLP solutions in protecting against data leakage into AI models, emphasizing the need for AI-specific security measures. They also announce the launch of their MCP Scanner and recognition as a Gartner Cool Vendor in AI Security.",
+      "attack_vectors": [
+        "Data leakage into AI models via prompts",
+        "Data leakage into AI models via embeddings",
+        "Data leakage into AI models via agent actions"
+      ],
+      "vulnerabilities": [
+        "Universal Vulnerabilities in AI Agents",
+        "Exploitation of Tool Names",
+        "OWASP LLM Top 10 vulnerabilities"
+      ],
+      "affected_components": [
+        "AI Models",
+        "Large Language Models (LLMs)",
+        "MCP Server (potentially vulnerable, based on scanner announcement)",
+        "Traditional DLP systems"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP systems are inadequate for securing AI interactions because they primarily focus on document-centric security. They fail to detect and prevent data leakage through prompts, embeddings, and agent actions, which are key components of AI model interactions. This can lead to sensitive data being exposed or misused by AI models, necessitating a shift towards AI-specific security controls and continuous AI red teaming.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Universal Vulnerabilities in AI Agents: Tool Name Exploitation & Security Risks | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT i..."
+  },
+  {
+    "id": "4bc4a907-403e-4465-b10e-6851d7b80c44",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/uncovering-safety-gaps-in-gemini-a-multimodal-red-teaming-study",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745082",
+    "analysis": {
+      "summary": "Enkrypt AI's red team assessment revealed critical security gaps in Google Gemini 2.5. The article also highlights the limitations of traditional DLP solutions in preventing data leakage into AI models and promotes Enkrypt AI's solutions for AI security, red teaming, and compliance monitoring.",
+      "attack_vectors": [
+        "Data leakage into AI models via prompts",
+        "Data leakage into AI models via embeddings",
+        "Data leakage into AI models via agent actions"
+      ],
+      "vulnerabilities": [
+        "Critical Security Gaps in Google Gemini 2.5",
+        "Limitations of traditional DLP in AI environments",
+        "OWASP LLM Top 10 vulnerabilities"
+      ],
+      "affected_components": [
+        "Google Gemini 2.5",
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP (Model Control Plane) Servers"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP solutions are ineffective against new attack vectors in AI environments. These include data leakage through prompts, embeddings, and agent actions, which are not addressed by document-centric security controls. The article emphasizes the need for continuous AI red teaming, automated risk detection, and compliance monitoring to secure AI-enabled applications against emerging threats and vulnerabilities like those listed in the OWASP LLM Top 10.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Critical Security Gaps in Google Gemini 2.5: Red Team Assessment Reveals High-Risk Vulnerabilities | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Sa..."
+  },
+  {
+    "id": "ddd32944-1018-417b-b5ff-d271a8a49afa",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/how-multi-turn-attacks-generate-harmful-content-from-your-ai-solution",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745087",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the risks of multi-turn attacks generating harmful content from AI solutions and promotes their MCP Scanner for vulnerability detection. They emphasize the inadequacy of traditional DLP solutions in protecting against AI-specific data leakage and advocate for AI red teaming, continuous risk detection, and compliance monitoring.",
+      "attack_vectors": [
+        "Multi-turn attacks",
+        "Data leakage into AI models",
+        "Prompt injection (implied)",
+        "Evasion of traditional DLP",
+        "Emerging AI threats"
+      ],
+      "vulnerabilities": [
+        "Vulnerabilities in MCP Server (implied)",
+        "Inadequate security controls for prompts, embeddings, and agent actions",
+        "Compliance gaps in AI interactions"
+      ],
+      "affected_components": [
+        "AI models",
+        "MCP Server",
+        "Large Language Models (LLMs)",
+        "AI-enabled applications"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP solutions are ineffective against AI-specific threats because they are document-centric and fail to address the nuances of AI interactions, such as prompts, embeddings, and agent actions. Multi-turn attacks can exploit these weaknesses to generate harmful content or leak sensitive data. Enkrypt AI's solution focuses on continuous AI red teaming, automated risk detection, and compliance monitoring to address these emerging threats.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "How Multi-Turn Attacks Generate Harmful Content from Your AI Solution | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident an..."
+  },
+  {
+    "id": "a5fdf53e-acc9-40c9-b86e-c52c99fc6815",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/deepseek-r1-ai-model-11x-more-likely-to-generate-harmful-content-security-research-finds",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745092",
+    "analysis": {
+      "summary": "Enkrypt AI published a report stating that the DeepSeek-R1 AI model is 11 times more likely to generate harmful content. They also highlight the limitations of traditional DLP solutions in preventing data leakage into AI models and advocate for AI red teaming, continuous risk detection, and compliance monitoring to secure AI-enabled applications. They also launched the Enkrypt AI MCP Scanner to scan MCP Servers for vulnerabilities.",
+      "attack_vectors": [
+        "Data leakage into AI models",
+        "Harmful content generation",
+        "Prompt injection (implied)",
+        "Embedding attacks (implied)",
+        "Agent actions (malicious/unintended) (implied)"
+      ],
+      "vulnerabilities": [
+        "Vulnerabilities in MCP Servers (detected by Enkrypt AI MCP Scanner)",
+        "Inadequate security controls for AI interactions",
+        "Limitations of traditional DLP in AI environments"
+      ],
+      "affected_components": [
+        "DeepSeek-R1 AI model",
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP Servers",
+        "Traditional Data Loss Prevention (DLP) systems"
+      ],
+      "impact_level": "High",
+      "technical_details": "The report indicates that traditional DLP solutions are ineffective against new attack vectors specific to AI models, such as prompt injection, embedding attacks, and malicious agent actions. The DeepSeek-R1 model's increased likelihood of generating harmful content suggests potential weaknesses in its safety mechanisms. The Enkrypt AI MCP Scanner aims to identify vulnerabilities in MCP Servers, likely related to configuration or code flaws that could be exploited.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "DeepSeek-R1 AI Model 11x More Likely to Generate Harmful Content, Enkrypt AI Security Report Finds | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Sa..."
+  },
+  {
+    "id": "b29dc877-73f8-46d0-82c2-01bfe5b8ae52",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/deepseek-under-fire-uncovering-bias-censorship-from-300-geopolitical-questions",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745097",
+    "analysis": {
+      "summary": "The article discusses the security risks associated with AI models, particularly focusing on data leakage and the limitations of traditional DLP solutions in the context of AI. It highlights the need for AI-specific security measures, including AI red teaming, continuous risk detection, and compliance monitoring. Enkrypt AI is presented as a solution for securing AI-enabled applications.",
+      "attack_vectors": [
+        "Data leakage into AI models",
+        "Prompt injection",
+        "Embedding attacks",
+        "Agent actions (malicious or unintended)",
+        "Emerging AI threats"
+      ],
+      "vulnerabilities": [
+        "Limitations of traditional DLP tools in preventing AI-related data leakage",
+        "Lack of auditing of AI interactions",
+        "Insufficient compliance measures for AI systems",
+        "Document-centric security approaches failing to address AI-specific risks"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP (Model Control Plane) Servers",
+        "AI agents",
+        "Embeddings"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP solutions are inadequate for securing AI systems because they primarily focus on document-centric security and fail to address the unique attack vectors associated with AI, such as prompt injection, embedding attacks, and malicious agent actions. The article emphasizes the need for continuous AI red teaming, automated risk detection, and compliance monitoring to secure AI-enabled applications against emerging threats and data leakage.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "DeepSeek Under Fire: Uncovering Bias & Censorship from 300 Geopolitical Questions | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT..."
+  },
+  {
+    "id": "c6f774d4-c758-4122-81e6-ec379a84df4e",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/novel-testing-approach-improves-llm-safety-and-robustness",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745101",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the limitations of traditional DLP solutions in preventing data leakage into AI models, emphasizing the need for AI-specific security measures. They advocate for continuous AI red teaming, automated risk detection, and compliance monitoring to secure AI-enabled applications against emerging threats. They also announce the launch of their MCP Scanner for vulnerability scanning.",
+      "attack_vectors": [
+        "Data leakage into AI models via prompts",
+        "Data leakage into AI models via embeddings",
+        "Data leakage into AI models via agent actions",
+        "Emerging AI threats (unspecified)"
+      ],
+      "vulnerabilities": [
+        "Vulnerabilities in MCP Server (implied by MCP Scanner launch)",
+        "Inadequacy of traditional DLP solutions for AI security",
+        "Compliance violations related to AI interactions"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP Server"
+      ],
+      "impact_level": "High",
+      "technical_details": "The article points out that traditional DLP systems are ineffective against AI-specific attack vectors. These systems, designed for document-centric security, fail to monitor and control the flow of sensitive data through prompts, embeddings, and agent actions within AI models. This can lead to unintended data leakage and compliance violations. Enkrypt AI proposes continuous AI red teaming and automated risk detection as a solution.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Novel Testing Approach Improves LLM Safety and Robustness | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident and OWASP\u00e2\u0080\u0099s ..."
+  },
+  {
+    "id": "fa562408-2f6d-4f42-acd1-79de400093ad",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/microsoft-copilot-big-ai-fixes-same-old-ai-bias",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745106",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the limitations of traditional DLP solutions in preventing data leakage into AI models, emphasizing the need for AI-specific security measures. They also announce the launch of their MCP Scanner for vulnerability scanning and their recognition by Gartner and Forrester.",
+      "attack_vectors": [
+        "Data leakage into AI models via prompts",
+        "Data leakage into AI models via embeddings",
+        "Data leakage into AI models via agent actions",
+        "Emerging AI threats (general)"
+      ],
+      "vulnerabilities": [
+        "Legacy DLP tools failing to detect AI-specific data leakage",
+        "OWASP LLM Top 10 vulnerabilities (implied)"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP Servers"
+      ],
+      "impact_level": "High",
+      "technical_details": "Traditional DLP solutions are inadequate for securing AI interactions because they primarily focus on document-centric security. They miss critical attack vectors such as prompts, embeddings, and agent actions, which can lead to sensitive data leakage into AI models. Enkrypt AI's solution focuses on continuous AI red teaming, automated risk detection, and compliance monitoring to address these emerging threats.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Microsoft Copilot: Big AI Fixes, Same Old AI Bias | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident and OWASP\u00e2\u0080\u0099s LLM Top ..."
+  },
+  {
+    "id": "b5a8695d-7d81-4af8-b1f7-c9bde8e9ccb9",
+    "title": "Read post",
+    "url": "https://www.enkryptai.com/blog/the-urgent-need-for-bias-mitigation-in-large-language-models",
+    "source_website_id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "scan_date": "2025-12-05T12:04:21.745111",
+    "analysis": {
+      "summary": "Enkrypt AI highlights the security risks associated with Large Language Models (LLMs) and promotes its AI security solutions. The article emphasizes the limitations of traditional DLP in preventing data leakage into AI models and advocates for AI red teaming, continuous risk detection, and compliance monitoring. It also mentions the need for bias mitigation in LLMs.",
+      "attack_vectors": [
+        "Data leakage into AI models via prompts",
+        "Data leakage into AI models via embeddings",
+        "Data leakage into AI models via agent actions",
+        "Emerging threats against AI-enabled applications"
+      ],
+      "vulnerabilities": [
+        "Bias in Large Language Models",
+        "Inadequate security controls for AI interactions",
+        "Limitations of traditional DLP in AI environments",
+        "OWASP LLM Top 10 vulnerabilities"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "AI-enabled applications",
+        "MCP Server (potentially vulnerable, based on the mention of 'MCP Scanner')",
+        "ChatGPT (mentioned in the context of Samsung's incident)"
+      ],
+      "impact_level": "High",
+      "technical_details": "The article points out that traditional DLP systems are ineffective against new attack vectors specific to AI models. These include data leakage through prompts, embeddings, and agent actions, which are not typically monitored by document-centric security controls. The need for AI red teaming and continuous risk detection is emphasized to address these emerging threats and ensure compliance.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "The Urgent Need for Bias Mitigation in Large Language Models | Enkrypt AI MCP Scanner Launched! Scan your MCP Server for vulnerabilities >>> Enkrypt AI has been recognized as a Gartner \u00c2\u00ae cool vendor in AI\u00c2\u00a0Security >>> Login Book a Demo Latest posts More articles Industry Trends Oh you have traditional DLP? Legacy DLP tools can\u00e2\u0080\u0099t stop data leakage into AI models\u00e2\u0080\u0094classic security controls miss prompts, embeddings, and agent actions entirely. Learn why Samsung\u00e2\u0080\u0099s ChatGPT incident and OWASP\u00e2\u0080..."
+  },
+  {
+    "id": "fe35cbd6-f50b-477d-8920-62809670df49",
+    "title": "Red TeamingAugust 15, 2025Automated Red Teaming Scans of Dataiku Agents Using Protect AI ReconWe are thrilled to announce the integration of Protect AI\u2019s Recon with Dataiku Agents, a...7 minute readRead more",
+    "url": "https://protectai.com/blog/automated-red-teaming-scans-dataiku-protect-ai-recon",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745116",
+    "analysis": {
+      "summary": "Palo Alto Networks is focusing on securing AI systems and infrastructure, with a strong emphasis on AI security by design, prompt injection prevention, data loss prevention, and securing AI agents. They are also addressing cloud and network security, including IoT and 5G security, and data exfiltration.",
+      "attack_vectors": [
+        "Prompt injection",
+        "Data leakage",
+        "Malicious code",
+        "DNS Hijacking",
+        "DNS relay attacks via HTTP headers",
+        "Overprivileged access",
+        "AI system poisoning"
+      ],
+      "vulnerabilities": [
+        "Visibility gap across unmanaged, managed & IoT devices",
+        "Vulnerable medical devices",
+        "AI Black Box problem"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Generative AI (GenAI)",
+        "AI models",
+        "AI applications",
+        "AI agents",
+        "Cloud environments",
+        "IoT devices",
+        "SaaS applications",
+        "Network infrastructure",
+        "Data centers",
+        "Private 4G & 5G networks"
+      ],
+      "impact_level": "High",
+      "technical_details": "The articles highlight the need for a defense-in-depth approach to AI security, including MLSecOps and Secure by Design principles. Key technologies mentioned include Prisma AIRS for AI security, Next-Generation Firewalls (NGFWs), and cloud security solutions. The focus is on real-time threat prevention, data protection, and ensuring compliance with security policies in AI and cloud environments. The CLARA assessment combines network, firewall, and AI analyses to quantify cloud and AI risk.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Network Security - Palo Alto Networks Blog Blog Network Security Network Security Protecting the Utility Grid\u2019s Digital Ecosystem, from Core to Edge to AI Securing private 4G & 5G networks helps utilities enable critical service continuity & maintain community safety and trust. 5G Security Firewall IoT Security Sep 17, 2025 By Meir Cohen and Mitch Rappard Network Security Hybrid Cloud Data Center Network Perimeter IoT Security 5G Security Zero Trust Security Next-Generation Firewalls Secure AI A..."
+  },
+  {
+    "id": "8fd76d2e-1022-48bb-be99-8b3dfaaef1d0",
+    "title": "Red TeamingAugust 8, 2025Strengthening AI Security with Protect AI Recon & Dataiku Guard ServicesAs organizations rapidly adopt generative AI, they face a new frontier of security challenges...3 minute readRead more",
+    "url": "https://protectai.com/blog/strengthening-ai-security-protect-ai-dataiku",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745121",
+    "analysis": {
+      "summary": "Palo Alto Networks is focusing on securing AI systems and infrastructure, with a strong emphasis on AI security by design, prompt injection prevention, data loss prevention, and securing AI agents. They are also addressing cloud and network security, including IoT and 5G security, and data exfiltration.",
+      "attack_vectors": [
+        "Prompt injection",
+        "Data leakage",
+        "Malicious code",
+        "DNS Hijacking",
+        "DNS relay attacks via HTTP headers",
+        "Overprivileged access",
+        "AI system poisoning"
+      ],
+      "vulnerabilities": [
+        "Visibility gap across unmanaged, managed & IoT devices",
+        "Vulnerable medical devices",
+        "AI Black Box problem"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Generative AI (GenAI)",
+        "AI models",
+        "AI applications",
+        "AI agents",
+        "Cloud environments",
+        "IoT devices",
+        "SaaS applications",
+        "Network infrastructure",
+        "Data centers",
+        "Private 4G & 5G networks"
+      ],
+      "impact_level": "High",
+      "technical_details": "The articles highlight the need for a defense-in-depth approach to AI security, including MLSecOps and Secure by Design principles. Key technologies mentioned include Prisma AIRS for AI security, Next-Generation Firewalls (NGFWs), and cloud security solutions. The focus is on real-time threat prevention, data protection, and ensuring compliance with security policies in AI and cloud environments. The CLARA assessment combines network, firewall, and AI analyses to quantify cloud and AI risk.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Network Security - Palo Alto Networks Blog Blog Network Security Network Security Protecting the Utility Grid\u2019s Digital Ecosystem, from Core to Edge to AI Securing private 4G & 5G networks helps utilities enable critical service continuity & maintain community safety and trust. 5G Security Firewall IoT Security Sep 17, 2025 By Meir Cohen and Mitch Rappard Network Security Hybrid Cloud Data Center Network Perimeter IoT Security 5G Security Zero Trust Security Next-Generation Firewalls Secure AI A..."
+  },
+  {
+    "id": "8d0ac583-183a-4436-9460-09a7898f34f7",
+    "title": "Red TeamingJuly 16, 2025Llama 4 Series Vulnerability Assessment: Scout vs. MaverickModel Brief Meta has launched the Llama 4 family, featuring models built on a...10 minute readRead more",
+    "url": "https://protectai.com/blog/vulnerability-assessment-llama-4",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745126",
+    "analysis": {
+      "summary": "Protect AI conducted a vulnerability assessment of Meta's Llama 4 series (Scout and Maverick) using their Recon product. The assessment revealed medium-risk scores for both models, with vulnerabilities to jailbreak, evasion, and prompt injection attacks. While Llama Guard 4, Meta's safeguard model, provides some protection, it can be bypassed, particularly in system prompt leak attacks. The analysis highlights the need for continuous security evaluation of LLMs and their guardrails.",
+      "attack_vectors": [
+        "Evasion",
+        "System prompt leak",
+        "Prompt injection",
+        "Jailbreak",
+        "Safety",
+        "Adversarial suffix"
+      ],
+      "vulnerabilities": [
+        "Susceptibility to jailbreak attacks",
+        "Vulnerability to evasion attacks (obfuscation techniques)",
+        "Vulnerability to prompt injection attacks",
+        "Bypassing of Llama Guard 4 safeguards"
+      ],
+      "affected_components": [
+        "Llama 4 Scout",
+        "Llama 4 Maverick",
+        "Llama Guard 4"
+      ],
+      "impact_level": "Medium",
+      "technical_details": "The Llama 4 models were tested against a library of over 450 attack prompts using Protect AI's Recon. The risk scores were derived from attack success rate (ASR), severity of prompts, and complexity of the techniques used. The models demonstrated vulnerabilities in jailbreaking, evasion, and prompt injection, with varying degrees of success. Llama Guard 4, while effective against some attacks like adversarial suffixes, showed weaknesses in preventing system prompt leaks and other categories, allowing malicious prompts to bypass the protection mechanisms.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Llama 4 Series Vulnerability Assessment: Scout vs. Maverick Blog Llama 4 Series Vulnerability Assessment: Scout vs. Maverick Red Teaming Threat Intelligence Llama 4 Series Vulnerability Assessment: Scout vs. Maverick by: Mukunth Madavan \u2022 10\n             min read \u2022 July 16, 2025 Model Brief Meta has launched the Llama 4 family, featuring models built on a mixture-of-experts (MoE) architecture: Llama 4 Scout: A 17B active parameter model with 16 experts (109B total parameters), offering an unprec..."
+  },
+  {
+    "id": "b837374e-eeb9-4e9f-95b0-d76c40f7e2b0",
+    "title": "Adversarial MLJune 23, 2025AI Risk Report: Fast-Growing Threats in AI Runtime3 minute readRead more",
+    "url": "https://protectai.com/blog/ai-risk-report-fast-growing-threats-in-ai-runtime",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745130",
+    "analysis": {
+      "summary": "This article discusses the rapidly growing threat landscape for AI systems, focusing on runtime attacks against large language models (LLMs). It highlights the increasing prevalence of jailbreak techniques, denial-of-service exploits, bias exploitation, and multimodal vulnerabilities, emphasizing how these attacks are evolving from isolated research to weaponized toolkits shared on platforms like GitHub.",
+      "attack_vectors": [
+        "Jailbreak techniques",
+        "Denial-of-service exploits",
+        "Bias exploitation methods",
+        "Multimodal vulnerabilities"
+      ],
+      "vulnerabilities": [
+        "Lack of robust safety guardrails in LLMs",
+        "Exploitable biases in AI models",
+        "Vulnerabilities in multimodal AI systems"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Production AI deployments",
+        "AI systems in live environments"
+      ],
+      "impact_level": "High",
+      "technical_details": "The article describes how attackers are leveraging open-source communities to automate and scale attacks against AI systems. Simple prompt tricks are being transformed into sophisticated, automated assault methods, making it easier for threat actors to exploit vulnerabilities in LLMs and other AI models. The attacks target runtime environments, aiming to manipulate safety guardrails, cause denial-of-service, exploit biases, and leverage multimodal vulnerabilities to cripple AI systems.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AI Risk Report: Fast-Growing Threats in AI Runtime Blog AI Risk Report: Fast-Growing Threats in AI Runtime Adversarial ML Industry News AI Risk Report: Fast-Growing Threats in AI Runtime by: Diana Kelley \u2022 3\n             min read \u2022 June 23, 2025 Description: The threat landscape for AI systems is exploding\u2014and runtime attacks on large language models are leading the charge. Diana Kelley, CISO at Protect AI, teams up with Chris De Vries, Senior Applied Researcher from Protect AI's Layer team, to ..."
+  },
+  {
+    "id": "59062391-1487-4b66-b18d-f84660bca928",
+    "title": "Adversarial MLJune 4, 2025Balancing Velocity and Vulnerability with llamafileThe AI ecosystem is witnessing a significant shift towards open source technologies, with...5 minute readRead more",
+    "url": "https://protectai.com/blog/balancing-velocity-vulnerability-llamafile",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745135",
+    "analysis": {
+      "summary": "Palo Alto Networks is focusing on securing AI systems and infrastructure, with a strong emphasis on AI security by design, prompt injection prevention, data loss prevention, and securing AI agents. They are also addressing cloud and network security, including IoT and 5G security, and data exfiltration.",
+      "attack_vectors": [
+        "Prompt injection",
+        "Data leakage",
+        "Malicious code",
+        "DNS Hijacking",
+        "DNS relay attacks via HTTP headers",
+        "Overprivileged access",
+        "AI system poisoning"
+      ],
+      "vulnerabilities": [
+        "Visibility gap across unmanaged, managed & IoT devices",
+        "Vulnerable medical devices",
+        "AI Black Box problem"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Generative AI (GenAI)",
+        "AI models",
+        "AI applications",
+        "AI agents",
+        "Cloud environments",
+        "IoT devices",
+        "SaaS applications",
+        "Network infrastructure",
+        "Data centers",
+        "Private 4G & 5G networks"
+      ],
+      "impact_level": "High",
+      "technical_details": "The articles highlight the need for a defense-in-depth approach to AI security, including MLSecOps and Secure by Design principles. Key technologies mentioned include Prisma AIRS for AI security, Next-Generation Firewalls (NGFWs), and cloud security solutions. The focus is on real-time threat prevention, data protection, and ensuring compliance with security policies in AI and cloud environments. The CLARA assessment combines network, firewall, and AI analyses to quantify cloud and AI risk.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Network Security - Palo Alto Networks Blog Blog Network Security Network Security Protecting the Utility Grid\u2019s Digital Ecosystem, from Core to Edge to AI Securing private 4G & 5G networks helps utilities enable critical service continuity & maintain community safety and trust. 5G Security Firewall IoT Security Sep 17, 2025 By Meir Cohen and Mitch Rappard Network Security Hybrid Cloud Data Center Network Perimeter IoT Security 5G Security Zero Trust Security Next-Generation Firewalls Secure AI A..."
+  },
+  {
+    "id": "c413e169-5910-44d8-abff-b9ea75de9156",
+    "title": "Red TeamingMay 21, 2025Assessing the Security of 4 Popular AI Reasoning ModelsIn the race to create more capable AI systems, reasoning models stand out as frontrunners.11 minute readRead more",
+    "url": "https://protectai.com/blog/assessing-security-popular-reasoning-models",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745140",
+    "analysis": {
+      "summary": "Palo Alto Networks is focusing on securing AI systems and infrastructure, with a strong emphasis on AI security by design, prompt injection prevention, data loss prevention, and securing AI agents. They are also addressing cloud and network security, including IoT and 5G security, and data exfiltration.",
+      "attack_vectors": [
+        "Prompt injection",
+        "Data leakage",
+        "Malicious code",
+        "DNS Hijacking",
+        "DNS relay attacks via HTTP headers",
+        "Overprivileged access",
+        "AI system poisoning"
+      ],
+      "vulnerabilities": [
+        "Visibility gap across unmanaged, managed & IoT devices",
+        "Vulnerable medical devices",
+        "AI Black Box problem"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Generative AI (GenAI)",
+        "AI models",
+        "AI applications",
+        "AI agents",
+        "Cloud environments",
+        "IoT devices",
+        "SaaS applications",
+        "Network infrastructure",
+        "Data centers",
+        "Private 4G & 5G networks"
+      ],
+      "impact_level": "High",
+      "technical_details": "The articles highlight the need for a defense-in-depth approach to AI security, including MLSecOps and Secure by Design principles. Key technologies mentioned include Prisma AIRS for AI security, Next-Generation Firewalls (NGFWs), and cloud security solutions. The focus is on real-time threat prevention, data protection, and ensuring compliance with security policies in AI and cloud environments. The CLARA assessment combines network, firewall, and AI analyses to quantify cloud and AI risk.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Network Security - Palo Alto Networks Blog Blog Network Security Network Security Protecting the Utility Grid\u2019s Digital Ecosystem, from Core to Edge to AI Securing private 4G & 5G networks helps utilities enable critical service continuity & maintain community safety and trust. 5G Security Firewall IoT Security Sep 17, 2025 By Meir Cohen and Mitch Rappard Network Security Hybrid Cloud Data Center Network Perimeter IoT Security 5G Security Zero Trust Security Next-Generation Firewalls Secure AI A..."
+  },
+  {
+    "id": "fd11203a-fbd6-47eb-816e-005df943543f",
+    "title": "Red TeamingMay 7, 2025GPT-4.1 Assessment: Critical Vulnerabilities ExposedGPT-4.1 Mini earns the highest risk score after latest update Assessment Brief OpenAI has...12 minute readRead more",
+    "url": "https://protectai.com/blog/gpt-4-1-vulnerability-assessment",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745146",
+    "analysis": {
+      "summary": "Palo Alto Networks is focusing on securing AI systems and infrastructure, with a strong emphasis on AI security by design, prompt injection prevention, data loss prevention, and securing AI agents. They are also addressing cloud and network security, including IoT and 5G security, and data exfiltration.",
+      "attack_vectors": [
+        "Prompt injection",
+        "Data leakage",
+        "Malicious code",
+        "DNS Hijacking",
+        "DNS relay attacks via HTTP headers",
+        "Overprivileged access",
+        "AI system poisoning"
+      ],
+      "vulnerabilities": [
+        "Visibility gap across unmanaged, managed & IoT devices",
+        "Vulnerable medical devices",
+        "AI Black Box problem"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Generative AI (GenAI)",
+        "AI models",
+        "AI applications",
+        "AI agents",
+        "Cloud environments",
+        "IoT devices",
+        "SaaS applications",
+        "Network infrastructure",
+        "Data centers",
+        "Private 4G & 5G networks"
+      ],
+      "impact_level": "High",
+      "technical_details": "The articles highlight the need for a defense-in-depth approach to AI security, including MLSecOps and Secure by Design principles. Key technologies mentioned include Prisma AIRS for AI security, Next-Generation Firewalls (NGFWs), and cloud security solutions. The focus is on real-time threat prevention, data protection, and ensuring compliance with security policies in AI and cloud environments. The CLARA assessment combines network, firewall, and AI analyses to quantify cloud and AI risk.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Network Security - Palo Alto Networks Blog Blog Network Security Network Security Protecting the Utility Grid\u2019s Digital Ecosystem, from Core to Edge to AI Securing private 4G & 5G networks helps utilities enable critical service continuity & maintain community safety and trust. 5G Security Firewall IoT Security Sep 17, 2025 By Meir Cohen and Mitch Rappard Network Security Hybrid Cloud Data Center Network Perimeter IoT Security 5G Security Zero Trust Security Next-Generation Firewalls Secure AI A..."
+  },
+  {
+    "id": "e2f801b7-a569-46e2-a495-22caa9aaffd4",
+    "title": "Machine LearningApril 16, 2025Machine Learning Models: A New Attack Vector for an Old ExploitMachine learning (ML) has seen rapid adoption across industries, enabling advancements in...6 minute readRead more",
+    "url": "https://protectai.com/blog/machine-learning-models-a-new-attack-vector-for-an-old-exploit",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745151",
+    "analysis": {
+      "summary": "The article discusses a new attack vector where machine learning models are used to execute drive-by attacks, similar to those seen with Java and Flash vulnerabilities. Attackers embed malicious payloads within ML models and dependencies, exploiting vulnerabilities in outdated ML libraries when unsuspecting ML engineers download and load these compromised models.",
+      "attack_vectors": [
+        "ML-based drive-by attacks",
+        "Path traversal attacks via malicious tar files",
+        "Exploitation of vulnerabilities in ML dependencies",
+        "Compromised ML models shared via public repositories",
+        "Data exfiltration",
+        "Lateral movement",
+        "Privilege escalation"
+      ],
+      "vulnerabilities": [
+        "Arbitrary Code Execution (ACE) vulnerabilities in ML dependencies",
+        "Path traversal vulnerability in the download_model_with_test_data function of the ONNX framework",
+        "Outdated and unmonitored libraries with known vulnerabilities"
+      ],
+      "affected_components": [
+        "Machine Learning Models",
+        "ML Dependencies",
+        "Hugging Face repositories",
+        "ONNX framework",
+        "ML development environments",
+        "ML training datasets",
+        "ML libraries",
+        "MLflow (mentioned in related blogs)"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "Attackers embed malicious payloads within ML model files, weights, configuration files, binary files, or Python scripts. When an ML engineer downloads and loads a compromised model, the exploit is triggered, leveraging vulnerabilities in outdated ML libraries. For example, a path traversal vulnerability in the ONNX framework's `download_model_with_test_data` function allows attackers to overwrite arbitrary files on the system. This can lead to privileged system access by injecting an RSA key, data integrity manipulation by poisoning training datasets, and lateral movement to compromise cloud environments and exfiltrate sensitive data.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Machine Learning Models: A New Attack Vector for an Old Exploit Blog Machine Learning Models: A New Attack Vector for an Old Exploit Machine Learning Threat Intelligence Machine Learning Models: A New Attack Vector for an Old Exploit by: Adam Nygate \u2022 6\n             min read \u2022 April 16, 2025 Machine learning (ML) has seen rapid adoption across industries, enabling advancements in automation, analytics, and artificial intelligence. However, the rapid growth of ML has also introduced new security ..."
+  },
+  {
+    "id": "8ff9a5d9-b3b2-433f-98ea-65242ca9c19f",
+    "title": "Red TeamingApril 2, 2025Qwen2.5-Max Vulnerability AssessmentQwen2.5-Max beats DeepSeek-V3 on Security Assessment Brief The model used for this assessment,15 minute readRead more",
+    "url": "https://protectai.com/blog/qwen-2.5-max-assessment",
+    "source_website_id": "1d6b9029-08fd-4ee1-8c15-48a1bf9fa613",
+    "scan_date": "2025-12-05T12:04:21.745155",
+    "analysis": {
+      "summary": "Palo Alto Networks is focusing on securing AI systems and infrastructure, with a strong emphasis on AI security by design, prompt injection prevention, data loss prevention, and securing AI agents. They are also addressing cloud and network security, including IoT and 5G security, and data exfiltration.",
+      "attack_vectors": [
+        "Prompt injection",
+        "Data leakage",
+        "Malicious code",
+        "DNS Hijacking",
+        "DNS relay attacks via HTTP headers",
+        "Overprivileged access",
+        "AI system poisoning"
+      ],
+      "vulnerabilities": [
+        "Visibility gap across unmanaged, managed & IoT devices",
+        "Vulnerable medical devices",
+        "AI Black Box problem"
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Generative AI (GenAI)",
+        "AI models",
+        "AI applications",
+        "AI agents",
+        "Cloud environments",
+        "IoT devices",
+        "SaaS applications",
+        "Network infrastructure",
+        "Data centers",
+        "Private 4G & 5G networks"
+      ],
+      "impact_level": "High",
+      "technical_details": "The articles highlight the need for a defense-in-depth approach to AI security, including MLSecOps and Secure by Design principles. Key technologies mentioned include Prisma AIRS for AI security, Next-Generation Firewalls (NGFWs), and cloud security solutions. The focus is on real-time threat prevention, data protection, and ensuring compliance with security policies in AI and cloud environments. The CLARA assessment combines network, firewall, and AI analyses to quantify cloud and AI risk.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Network Security - Palo Alto Networks Blog Blog Network Security Network Security Protecting the Utility Grid\u2019s Digital Ecosystem, from Core to Edge to AI Securing private 4G & 5G networks helps utilities enable critical service continuity & maintain community safety and trust. 5G Security Firewall IoT Security Sep 17, 2025 By Meir Cohen and Mitch Rappard Network Security Hybrid Cloud Data Center Network Perimeter IoT Security 5G Security Zero Trust Security Next-Generation Firewalls Secure AI A..."
+  },
+  {
+    "id": "6759735e-81f8-4e37-848d-e38d6ab47033",
+    "title": "Nov 11, 2025Modeling LLMs via Structured Self-Modeling (SSM)How using structured prompts present findings of self-modeling in LLMs, which may benefit both attackers and defenders",
+    "url": "https://labs.zenity.io/p/modeling-llms-via-structured-self-modeling-ssm",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745160",
+    "analysis": {
+      "summary": "This article presents research on Structured Self-Modeling (SSM), a technique that extends Data-Structure Injection (DSI) to allow LLMs to predict whether they will comply with malicious requests. The research suggests that LLMs may have some level of self-modeling capability, allowing them to anticipate whether an input will bypass their defenses. This has implications for both attackers and defenders, enabling reconnaissance and potentially informing AI safety, interpretability, and alignment research.",
+      "attack_vectors": [
+        "Data-Structure Injection (DSI)",
+        "Structured Self-Modeling (SSM)",
+        "Prompt Injection",
+        "SQLi",
+        "CMDi",
+        "XSS"
+      ],
+      "vulnerabilities": [
+        "LLMs can be manipulated to output unsafe content via structured inputs.",
+        "LLMs may be vulnerable to bypassing their defenses through DSI and SSM.",
+        "LLMs may be vulnerable to prompt injection attacks."
+      ],
+      "affected_components": [
+        "GPT-4o",
+        "Claude 3 Haiku",
+        "Gemini 2.0 Flash Lite",
+        "Large Language Models (LLMs)",
+        "AI Agents"
+      ],
+      "impact_level": "Medium",
+      "technical_details": "Structured Self-Modeling (SSM) involves nesting a Data-Structure Injection (DSI) payload within another data structure, querying the LLM whether it will comply with a malicious request. The LLM's prediction is then compared to its actual behavior when presented with the DSI payload. Experiments show that models like GPT-4o, Claude 3 Haiku, and Gemini 2.0 Flash Lite exhibit varying degrees of meta-awareness, accurately predicting their compliance or refusal to malicious requests in a significant number of cases. This allows attackers to test and refine attacks, and defenders to preemptively identify and block potentially harmful inputs.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Modeling LLMs via Structured Self-Modeling (SSM) 0 0 Zenity Labs Posts Modeling LLMs via Structured Self-Modeling (SSM) Modeling LLMs via Structured Self-Modeling (SSM) How using structured prompts present findings of self-modeling in LLMs, which may benefit both attackers and defenders Tomer Wetzler November 11, 2025 Previously on Zenity Labs In my previous blog post, I\u2019ve given an overview, formalization, and definition of a new attack class against Large Language Models powered AI agents. In ..."
+  },
+  {
+    "id": "8d9d76bc-3eee-4aeb-aa42-4da272f50a6b",
+    "title": "Nov 06, 2025Data-Structure Injection (DSI) in AI AgentsHow controlling the structure of the prompt, not just the semantics, can exploit your AI agents and their tools",
+    "url": "https://labs.zenity.io/p/data-structure-injection-dsi-in-ai-agents",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745165",
+    "analysis": {
+      "summary": "This article introduces Data-Structure Injection (DSI), a new class of vulnerabilities that can hijack AI agents by exploiting how they complete structured data formats like JSON, XML, and YAML. Attackers can manipulate the structure of prompts to control the model's output, leading to incorrect tool calls, dangerous inputs, or complete workflow hijacking.",
+      "attack_vectors": [
+        "Schema-Exploitation (DSI-S): Completing extra fields inside legitimate tool schemas.",
+        "Argument-Exploitation (DSI-A): Injecting payloads into parameter values to execute arbitrary commands.",
+        "Workflow-Exploitation (DSI-W): Full-workflow takeover via structured markup like XML or YAML."
+      ],
+      "vulnerabilities": [
+        "Data-Structure Injection (DSI)",
+        "Schema Exploitation",
+        "Argument Exploitation",
+        "Workflow Exploitation"
+      ],
+      "affected_components": [
+        "LLM agents",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Cursor (powered by Grok)",
+        "Agentic Frameworks",
+        "Tool-calling layers in AI agents"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "DSI exploits the next-token prediction nature of LLMs. By crafting partial structures (JSON, XML, etc.), attackers can collapse the model's token options and steer its completion towards attacker-desired fields or values. When these completions are executed as tool calls or parsed as workflows, the attacker effectively hijacks the agent's behavior. This is achieved by manipulating the structural priors of the model, similar to how SQL injection exploits query concatenation, DSI exploits schema concatenation.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Data-Structure Injection (DSI) in AI Agents 0 0 Zenity Labs Posts Data-Structure Injection (DSI) in AI Agents Data-Structure Injection (DSI) in AI Agents How controlling the structure of the prompt, not just the semantics, can exploit your AI agents and their tools Tomer Wetzler November 06, 2025 tl;dr By using structured prompts (YML, XML, JSON, etc.) as input to LLM agents, an attacker gains more control over the next token that the model will output. This allows them to call incorrect tools, ..."
+  },
+  {
+    "id": "b7326fda-d912-47e9-83bb-634eb8fef836",
+    "title": "Oct 23, 2025Exploring the Risks of ChatGPT\u2019s Atlas Browser",
+    "url": "https://labs.zenity.io/p/exploring-the-risks-of-chatgpt-s-atlas-browser",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745170",
+    "analysis": {
+      "summary": "Zenity Labs researchers explored the security risks associated with OpenAI's ChatGPT Atlas browser, which integrates an LLM directly into the user's browser. The integration breaks traditional browser security boundaries, introducing risks like prompt injection, data exfiltration, and lateral movement through malicious memories.",
+      "attack_vectors": [
+        "Prompt Injection",
+        "Memory Injection",
+        "Data Exfiltration via attacker-controlled proxy",
+        "Lateral Movement between ChatGPT products via poisoned memories",
+        "Malicious instructions through connected services (Google Drive, Gmail, Slack, Dropbox, etc.)",
+        "Poisoning the memory without requiring any user interaction",
+        "Embedding prompt injections inside untrusted files uploaded to ChatGPT (PDFs, DOCX, spreadsheets, slides)",
+        "Poisoning websites with prompt injections"
+      ],
+      "vulnerabilities": [
+        "Lack of sufficient user awareness regarding AI security risks",
+        "Default settings favoring 'Logged In' agent mode",
+        "Shared memory between ChatGPT and Atlas",
+        "Unrestricted network access for data exfiltration",
+        "Reliance on user decisions for security configurations"
+      ],
+      "affected_components": [
+        "ChatGPT Atlas Browser",
+        "ChatGPT",
+        "Chromium-based browsers (potentially)",
+        "User accounts (Gmail, Google Calendar, Social Media, etc.)",
+        "OpenAI's memory system"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "ChatGPT Atlas, by integrating an LLM into a browser, allows for remote control of the browser via prompt injection. Attackers can exploit the 'Agent mode' to perform actions on behalf of the user, including data exfiltration, navigating to malicious sites, and sending emails. The shared memory feature between ChatGPT and Atlas enables lateral movement, where a poisoned memory from a regular ChatGPT session can be used to hijack an Atlas session. The browser's ability to send requests to any domain facilitates easy data exfiltration to attacker-controlled proxies.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Exploring the Risks of ChatGPT\u2019s Atlas Browser 0 0 Zenity Labs Posts Exploring the Risks of ChatGPT\u2019s Atlas Browser Exploring the Risks of ChatGPT\u2019s Atlas Browser Tamir Ishay Sharbat & Raul Klugman-Onitza October 23, 2025 When OpenAI launched ChatGPT Agent it was the merger of two previous offerings: Deep Research - a multi-step reasoning model capable of accomplishing complex tasks, and Operator - an agent that can browse the web. But something was a bit off. Yes, it could browse and execute op..."
+  },
+  {
+    "id": "81bfc7eb-267d-4b55-bdc8-e8a195b24cdb",
+    "title": "Oct 21, 2025Interpreting Jailbreaks and Prompt Injections with Attribution Graphs",
+    "url": "https://labs.zenity.io/p/interpreting-jailbreaks-and-prompt-injections-with-attribution-graphs",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745175",
+    "analysis": {
+      "summary": "Zenity Labs is researching LLM internals using mechanistic interpretability to understand and improve the security of AI agents. They are using attribution graphs to analyze jailbreaks and prompt injections, focusing on identifying security-related features and causal chains within the LLM's internal states. The research aims to find predictors for ethically problematic conversations and improve the detection of harmful requests.",
+      "attack_vectors": [
+        "Indirect Prompt Injection",
+        "Jailbreak Prompts",
+        "Phishing"
+      ],
+      "vulnerabilities": [
+        "LLMs being susceptible to prompt injections and jailbreaks due to the lack of transparency in their internal states.",
+        "Polysemanticity: Neurons firing on multiple concepts, making it difficult to pinpoint specific vulnerabilities."
+      ],
+      "affected_components": [
+        "Large Language Models (LLMs)",
+        "Qwen3-4B",
+        "Gemma2-2B-it",
+        "AI Agents"
+      ],
+      "impact_level": "Medium",
+      "technical_details": "The research uses attribution graphs to visualize the connections between input tokens, interpretable features (neurons), and output tokens within an LLM. By intervening on specific features (e.g., 'regret' or features related to 'cyber attacks'), researchers can observe how the model's output changes, revealing causal relationships and potential vulnerabilities. The analysis involves identifying security-related features that fire even when the model complies with harmful requests, suggesting a potential monitoring strategy. The research also explores the limitations of current methods in establishing full causal chains due to the complexity of LLM internal states and the quality of replacement models.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Interpreting Jailbreaks and Prompt Injections with Attribution Graphs 0 0 Zenity Labs Posts Interpreting Jailbreaks and Prompt Injections with Attribution Graphs Interpreting Jailbreaks and Prompt Injections with Attribution Graphs Max Fomin October 21, 2025 Today\u2019s agent security is strong at the edges : we monitor inputs/outputs, trace and permission tool calls, track taint, rate-limit, and log everything. We have a very complex agent system that we break down into components and secure each o..."
+  },
+  {
+    "id": "b9f89ebf-068e-4a3a-83eb-1c08e76f16ea",
+    "title": "Oct 10, 2025Breaking down AgentKit's GuardrailsA deep dive into OpenAI's AgentKit guardrails, how they are implemented, and where they fail",
+    "url": "https://labs.zenity.io/p/breaking-down-agentkit-s-guardrails",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745180",
+    "analysis": {
+      "summary": "Zenity Labs analyzed OpenAI's AgentKit guardrails (PII, Hallucination, Moderation, and Jailbreak) and found them to be easily bypassed due to flawed assumptions and reliance on probabilistic models. The analysis demonstrates how attackers can evade these guardrails using simple obfuscation techniques, language manipulation, and evolving prompt-injection tactics.",
+      "attack_vectors": [
+        "PII obfuscation (e.g., misspelling, removing hyphens)",
+        "Case variation (e.g., lowercase vs. uppercase)",
+        "Exploiting the Hallucination Guardrail's reliance on model confidence",
+        "Obfuscating harmful content with misspellings, special characters, or emojis",
+        "Encoding harmful messages using phonetics or leetspeak",
+        "Wrapping harmful text inside code blocks or markdown formatting",
+        "Embedding toxic intent in metaphors, jokes, or roleplay",
+        "Chaining instructions across multiple turns (Jailbreak)",
+        "Embedding malicious payloads inside code, natural language, or emojis (Jailbreak)",
+        "Phrasing, obfuscation, or misdirection (Jailbreak)"
+      ],
+      "vulnerabilities": [
+        "PII Guardrail: Pattern-based detection failure",
+        "Hallucination Guardrail: Reliance on model confidence over factual accuracy",
+        "Moderation Guardrail: Susceptibility to obfuscation and encoding",
+        "Jailbreak Guardrail: Inability to detect evolving prompt-injection tactics"
+      ],
+      "affected_components": [
+        "OpenAI's AgentKit",
+        "OpenAI's PII Guardrail",
+        "OpenAI's Hallucination Guardrail",
+        "OpenAI's Moderation Guardrail",
+        "OpenAI's Jailbreak Guardrail",
+        "LLMs (GPT-5, GPT-4.1, o1-Pro, o4-Mini)"
+      ],
+      "impact_level": "High",
+      "technical_details": "The AgentKit guardrails, designed to protect against PII leaks, hallucinations, harmful content, and jailbreak attempts, are vulnerable to various evasion techniques. The PII guardrail relies on pattern matching, which can be bypassed by altering the format of sensitive data. The Hallucination guardrail uses a second model to verify the first model's output, but this approach is flawed because both models share similar biases and blind spots. The Moderation guardrail can be bypassed by obfuscating harmful content. The Jailbreak guardrail, which aims to prevent prompt injection attacks, is also vulnerable because it relies on a model to interpret user intent, making it susceptible to cleverly disguised attacks.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Breaking down AgentKit's Guardrails 0 0 Zenity Labs Posts Breaking down AgentKit's Guardrails Breaking down AgentKit's Guardrails A deep dive into OpenAI's AgentKit guardrails, how they are implemented, and where they fail Stav Cohen October 10, 2025 After publishing an analysis of the risks of OpenAI\u2019s Agent Kit , noticing multiple soft guardrails, we decided that this can be taken one step further. It\u2019s not enough to just analyze the guardrails and call them out as soft. We need to dive deeper..."
+  },
+  {
+    "id": "8c98e10a-5f61-4864-b837-0344690dabc1",
+    "title": "Oct 08, 2025Analyzing The Security Risks of OpenAI's AgentKit",
+    "url": "https://labs.zenity.io/p/analyzing-the-security-risks-of-openai-s-agentkit",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745188",
+    "analysis": {
+      "summary": "Zenity Labs analyzed the security risks of OpenAI's AgentKit, a platform for building agentic workflows. The analysis identifies several potential security pitfalls in Agent Builder, Connector Registry, and ChatKit, including private data leakage, excessive agency, soft security boundaries, unsafe agent instruction definition, and ChatKit deployment risks. The article also discusses the limitations of OpenAI's built-in safety layers (Guardrails, User Approval, and LLM-as-a-Judge) and emphasizes the need for developers to treat them as a baseline rather than a guarantee.",
+      "attack_vectors": [
+        "Prompt injection (direct and indirect)",
+        "Rug Pulls (via 3rd-party MCP servers)",
+        "Tool Poisoning (via 3rd-party MCP servers)",
+        "Credential sharing/mismanagement",
+        "Bypassing LLM-as-a-Judge",
+        "Incorporating untrusted user input into agent instructions",
+        "Classical web application security concerns (related to ChatKit deployment)"
+      ],
+      "vulnerabilities": [
+        "Private data leakage from File Search and MCP Connectors",
+        "Data alteration via prompt injection and MCP server tools",
+        "Mishandling of access tokens for external connectors",
+        "Excessive agency leading to single point of failure",
+        "Soft security boundaries vulnerable to bypass",
+        "Unsafe agent instruction definition allowing prompt injection",
+        "Guardrail limitations (false positives, false negatives, runtime issues)"
+      ],
+      "affected_components": [
+        "Agent Builder",
+        "Connector Registry",
+        "ChatKit",
+        "File Search (vector database)",
+        "MCP Connectors (Gmail, Google Calendar, Zapier, Shopify, PayPal, etc.)",
+        "Guardrails node",
+        "User Approval node",
+        "LLM-as-a-Judge"
+      ],
+      "impact_level": "High",
+      "technical_details": "The security risks stem from the platform's architecture, which allows agents to access and manipulate sensitive data through connectors and tools. Prompt injection attacks can exploit vulnerabilities in the agent's logic, leading to data leakage, alteration, or unauthorized actions. The reliance on LLMs for security decisions (LLM-as-a-Judge) creates soft guardrails that can be bypassed. Furthermore, the platform's credential management system introduces risks related to the mishandling of access tokens. The combination of these factors can result in significant security breaches if not properly addressed.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Analyzing The Security Risks of OpenAI's AgentKit 0 0 Zenity Labs Posts Analyzing The Security Risks of OpenAI's AgentKit Analyzing The Security Risks of OpenAI's AgentKit Stav Cohen & Raul Klugman-Onitza October 08, 2025 Introduction OpenAI has just launched AgentKit - a set of tools for building agentic workflows right in the heart of the OpenAI platform. No more using a plethora of frameworks, tools, and hosting services for building and deploying your agents. Now you can do it all in one pla..."
+  },
+  {
+    "id": "0a065fcd-8699-4ec7-ac14-a1dc504d1fd1",
+    "title": "Aug 14, 2025Prompt Mines: 0-Click Data Corruption In Salesforce Einstein",
+    "url": "https://labs.zenity.io/p/prompt-mines-0-click-data-corruption-in-salesforce-einstein-1cfb",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745193",
+    "analysis": {
+      "summary": "Zenity Labs discovered a new attack technique called \"Prompt Mines\" that can be used to corrupt data in Salesforce Einstein. This technique bypasses Salesforce's security mechanism that prevents the LLM from reading tool call results. By inserting hidden instructions into CRM fields via public-facing features like Email-to-Case or Web-to-Case, attackers can hijack Einstein into performing malicious actions, such as updating customer contact information with incorrect data.",
+      "attack_vectors": [
+        "Indirect Prompt Injection",
+        "Prompt Mines",
+        "Email-to-Case",
+        "Web-to-Case",
+        "Chained Prompt Injections"
+      ],
+      "vulnerabilities": [
+        "Lack of input validation on Email-to-Case and Web-to-Case forms",
+        "Einstein's susceptibility to prompt injection despite not reading tool call results",
+        "Einstein's ability to execute write actions (e.g., Update Record, Update Customer Contact)",
+        "Einstein's retention of context from previous queries, allowing for delayed prompt injection",
+        "Einstein rendering only the first 3 records, hiding malicious records from the user"
+      ],
+      "affected_components": [
+        "Salesforce Einstein",
+        "Salesforce CRM",
+        "Agentforce platform (custom agents)",
+        "Email-to-Case feature",
+        "Web-to-Case feature"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The Prompt Mines attack involves injecting malicious instructions into CRM fields (e.g., case subject lines) that Einstein later interprets when users ask related follow-up questions. Attackers exploit public-facing features like Email-to-Case or Web-to-Case to insert these hidden prompts. By chaining multiple prompts together, attackers can instruct Einstein to perform a series of actions, such as querying records and then repeatedly updating them with malicious data. This allows for a 0-click exploit where a user's normal interaction with Einstein triggers the data corruption process without any explicit action on their part.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Prompt Mines: 0-Click Data Corruption In Salesforce Einstein 0 0 Zenity Labs Posts Prompt Mines: 0-Click Data Corruption In Salesforce Einstein Prompt Mines: 0-Click Data Corruption In Salesforce Einstein Tamir Ishay Sharbat August 14, 2025 Salesforce Einstein is Salesforce\u2019s flagship AI assistant, integrated into the Salesforce CRM. In a previous post we took a deep dive into Einstein\u2019s architecture , mentioning how Salesforce built Einstein so it doesn\u2019t read tool call results but instead imme..."
+  },
+  {
+    "id": "18c65484-5397-4bd9-85a2-724fd4c1bbde",
+    "title": "Aug 08, 2025AgentFlayer: Minimum Clicks, Maximum Leaks: Tilling ChatGPT\u2019s Attack SurfaceExploiting ChatGPT with Language Alone: A Deep Dive into 0Click and 1Click Attacks.",
+    "url": "https://labs.zenity.io/p/agentflayer-minimum-clicks-maximum-leaks-tilling-chatgpt-s-attack-surface-c4c7",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745198",
+    "analysis": {
+      "summary": "Zenity Labs discovered several attack vectors against ChatGPT, dubbed 'AgentFlayer,' that allow for data exfiltration through prompt injection. These attacks range from phishing link injection to 0-click memory and conversation exfiltration, highlighting the risks associated with AI's susceptibility to language-based manipulation.",
+      "attack_vectors": [
+        "Phishing link injection via indirect prompt injection",
+        "0-click memory exfiltration",
+        "0-click conversation exfiltration"
+      ],
+      "vulnerabilities": [
+        "ChatGPT's susceptibility to prompt injection",
+        "Lack of sufficient input sanitization",
+        "Over-trusting of user-provided files",
+        "Insufficient security controls to detect malicious prompts"
+      ],
+      "affected_components": [
+        "ChatGPT"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The attacks leverage natural language prompts embedded within seemingly harmless files (e.g., a CV) to manipulate ChatGPT's behavior. The phishing attack injects a malicious link into the chat output, tricking users into providing their credentials. The 0-click attacks exploit ChatGPT's processing of the file content to exfiltrate user memory and entire conversations to an attacker-controlled server, without requiring any user interaction beyond uploading the file and requesting a summary.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AgentFlayer: Minimum Clicks, Maximum Leaks: Tilling ChatGPT\u2019s Attack Surface 0 0 Zenity Labs Posts AgentFlayer: Minimum Clicks, Maximum Leaks: Tilling ChatGPT\u2019s Attack Surface AgentFlayer: Minimum Clicks, Maximum Leaks: Tilling ChatGPT\u2019s Attack Surface Exploiting ChatGPT with Language Alone: A Deep Dive into 0Click and 1Click Attacks. Dmitry Lozovoy August 07, 2025 Introduction In this post, we\u2019ll walk through a series of attacks we performed against ChatGPT, focusing on data exfiltration using ..."
+  },
+  {
+    "id": "2c320dc4-f73d-4c2d-a8c4-8ae6432a3a24",
+    "title": "Aug 06, 2025AgentFlayer: ChatGPT Connectors 0click Attack",
+    "url": "https://labs.zenity.io/p/agentflayer-chatgpt-connectors-0click-attack-5b41",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745203",
+    "analysis": {
+      "summary": "Zenity Labs discovered a 0-click data exfiltration attack, named AgentFlayer, targeting ChatGPT Connectors. By leveraging indirect prompt injection, attackers can exfiltrate sensitive data from connected services like Google Drive and Sharepoint without user interaction. The attack involves poisoning documents with malicious prompts that instruct ChatGPT to search for sensitive information (e.g., API keys) and embed it into image URLs, which are then rendered by ChatGPT, sending the data to the attacker's server.",
+      "attack_vectors": [
+        "Indirect Prompt Injection",
+        "0-click Data Exfiltration",
+        "Image Rendering Exploitation",
+        "Bypassing URL Safety Mitigations"
+      ],
+      "vulnerabilities": [
+        "Lack of robust input sanitization in ChatGPT Connectors",
+        "Vulnerability in ChatGPT's image rendering process",
+        "Insufficient URL safety checks"
+      ],
+      "affected_components": [
+        "ChatGPT",
+        "ChatGPT Connectors (Google Drive, Sharepoint, Github, etc.)",
+        "OpenAI's URL safety mitigation endpoint (url_safe)"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The attack begins with an attacker injecting a malicious prompt into a document. When a user uploads this document to ChatGPT, the prompt instructs ChatGPT to search connected services (e.g., Google Drive) for sensitive data. Once found, the data is embedded into the URL of an image, which ChatGPT then renders. This rendering triggers a request to the specified URL, sending the sensitive data as parameters to the attacker's server. The researchers bypassed OpenAI's initial mitigation by using Azure Blob storage, which was considered a 'safe' URL, to host the image and Azure Log Analytics to capture the exfiltrated data.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AgentFlayer: ChatGPT Connectors 0click Attack 0 0 Zenity Labs Posts AgentFlayer: ChatGPT Connectors 0click Attack AgentFlayer: ChatGPT Connectors 0click Attack Tamir Ishay Sharbat August 06, 2025 Recently OpenAI added a new feature to ChatGPT called Connectors . Connectors let ChatGPT connect to third-party applications such as Google Drive, Sharepoint, Github, and more. Now your trustworthy AI companion can search files, pull live data, and give answers which are grounded in your personal busin..."
+  },
+  {
+    "id": "d1b3f4c4-a4da-4d15-a13b-c55777b48057",
+    "title": "Aug 06, 2025AI Enterprise Compromise - 0click Exploit Methods",
+    "url": "https://labs.zenity.io/p/hsc25",
+    "source_website_id": "4cb730ca-d8e1-478c-b850-1311465e3ee4",
+    "scan_date": "2025-12-05T12:04:21.745209",
+    "analysis": {
+      "summary": "Zenity Labs presented research at BlackHat/DEF CON on AI Enterprise Compromise using 0-click exploit methods, focusing on attacks against ChatGPT connectors and Copilot Studio.",
+      "attack_vectors": [
+        "0click Attack",
+        "AIjacking",
+        "AgentFlayer",
+        "ChatGPT Connectors Attack",
+        "Jira Ticket Stealing Secrets",
+        "Data Exfiltration"
+      ],
+      "vulnerabilities": [
+        "Vulnerabilities in ChatGPT Connectors",
+        "Vulnerabilities in Copilot Studio",
+        "Vulnerabilities related to Jira ticket handling"
+      ],
+      "affected_components": [
+        "ChatGPT Connectors",
+        "Copilot Studio",
+        "Jira"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The research details 0-click exploits (AgentFlayer) targeting AI agents and connectors, specifically within ChatGPT and Copilot Studio. These attacks leverage vulnerabilities in how these systems handle data and permissions, potentially leading to data exfiltration and full system compromise. The use of Jira tickets to steal secrets suggests vulnerabilities in how sensitive information is managed within these workflows.",
+      "published_date": null,
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "AI Enterprise Compromise - 0click Exploit Methods 0 0 Zenity Labs Posts AI Enterprise Compromise - 0click Exploit Methods AI Enterprise Compromise - 0click Exploit Methods Michael Bargury August 06, 2025 You're in the right place\u2014I'll be posting content throughout BlackHat / DEF CON. In the meantime, check out our deep dives into some of the attacks we presented on stage. AgentFlayer: ChatGPT Connectors 0click Attack AgentFlayer: Minimum Clicks, Maximum Leaks: Tilling ChatGPT\u2019s Attack Surface Ag..."
+  },
+  {
+    "id": "dab45137-ff14-4e04-afff-59b28df51843",
+    "title": "WizOS: Powering Secured Image Adoption with AI",
+    "url": "https://www.wiz.io/blog/wizos-secured-image-adoption-with-ai",
+    "source_website_id": "47cf7373-0e53-476a-aa1b-28ec1b74661a",
+    "scan_date": "2025-12-05T12:04:06.280891",
+    "analysis": {
+      "summary": "Wiz announces the General Availability of WizOS, a secured container image solution designed to eliminate inherited container image risk and build on a foundation that is minimal, secure, and trusted. WizOS addresses known vulnerability risk and unknown supply chain risk by providing near-zero CVE container images with cryptographically verifiable provenance and a secured package repository.",
+      "attack_vectors": [
+        "Supply chain attacks targeting open source repositories",
+        "Compromised packages introduced through publicly sourced container images"
+      ],
+      "vulnerabilities": [
+        "Critical and high severity CVE findings in container base images",
+        "Inherited vulnerabilities in container images"
+      ],
+      "affected_components": [
+        "Container images",
+        "Public package repositories",
+        "Cloud applications",
+        "Dockerfiles",
+        "Alpine images",
+        "Docker images",
+        "Ubuntu images",
+        "Kubernetes native images"
+      ],
+      "impact_level": "High",
+      "technical_details": "WizOS aims to shift the security approach from vulnerability management to a secured foundation by providing container images with near-zero CVEs and verifiable provenance. The Wiz platform supports secured image adoption through visibility, risk mitigation, and enforcement of guardrails. AI capabilities, including Mika AI and Wiz MCP, are used to assist developers in migrating to WizOS images by planning, prioritizing, and implementing image swaps directly in the IDE.",
+      "published_date": "2025-11-28",
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "WizOS: Secured Images Powered by AI | Wiz Blog Wiz Pricing Get a demo Get a demo Today we\u2019re excited to announce the General Availability of WizOS to help teams eliminate inherited container image risk and build on a foundation that is minimal, secure, and trusted. Container images are the foundation of modern applications, but they are frequently sourced from public repositories that lack security guarantees and verifiable provenance. This introduces risk to applications in two ways: Known vuln..."
+  },
+  {
+    "id": "59b09f40-bd53-4392-bb0d-e6566a922f43",
+    "title": "Empower and Accelerate Your SOC with the Wiz SecOps AI Agent",
+    "url": "https://www.wiz.io/blog/wiz-secops-ai-agent",
+    "source_website_id": "47cf7373-0e53-476a-aa1b-28ec1b74661a",
+    "scan_date": "2025-12-05T12:04:21.742215",
+    "analysis": {
+      "summary": "Wiz introduces the SecOps AI Agent to accelerate cloud threat detection and response. The agent automatically triages threats, collects context from the cloud environment, and provides a verdict, enabling SOC analysts to focus on high-value tasks. It leverages Wiz's platform context and an internal Incident Response (IR) knowledge base.",
+      "attack_vectors": [
+        "Anomalous behavior",
+        "Malicious behavior"
+      ],
+      "vulnerabilities": [],
+      "affected_components": [
+        "Cloud environments",
+        "Wiz Defend",
+        "SOC workflows"
+      ],
+      "impact_level": "High",
+      "technical_details": "The SecOps AI Agent uses the full context of the Wiz platform (cloud events, detections, risk analysis) and an internal IR knowledge base to investigate threats. It correlates runtime signals, network telemetry, and cloud context to identify malicious behavior and provide a verdict with supporting evidence. The agent's reasoning is transparent, allowing analysts to validate conclusions.",
+      "published_date": "2025-11-10",
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Empower and Accelerate Your SOC with the Wiz SecOps AI Agent | Wiz Blog Wiz Pricing Get a demo Get a demo Last week at Wizdom NYC , our first ever user conference, we introduced the SecOps AI agent to help your SOC accelerate cloud threat detection and response. The Agent, now an integral part of the Wiz Defend experience, brings the power of AI and the context of the Wiz platform to threat investigation and response. Its mission is simple: investigate every threat the moment it triggers, and em..."
+  },
+  {
+    "id": "a53ca324-af09-4f57-be95-2efc9aa44ca2",
+    "title": "There's got to be a better way! (7 minute read)",
+    "url": "https://www.argmin.net/p/theres-got-to-be-a-better-way?utm_source=tldrai",
+    "source_website_id": "monitor-https://tldr.tech/ai",
+    "scan_date": "2025-12-09T20:26:40.194366",
+    "analysis": {
+      "summary": "The article critiques the use of Reinforcement Learning (RL), particularly in the context of Large Language Models (LLMs), arguing that it is often inefficient and difficult to implement correctly. It suggests that alternative approaches, such as certainty equivalence, may offer more efficient solutions, especially for reasoning models. The author expresses skepticism about the current reliance on RL in LLMs and proposes that simpler methods might achieve comparable or superior results.",
+      "attack_vectors": [],
+      "vulnerabilities": [
+        "Inefficiency of Reinforcement Learning: RL algorithms, especially policy gradient, require a large number of interactions with the environment, making them computationally expensive.",
+        "Difficulty in Implementation: RL algorithms are complex and prone to subtle bugs, making them hard to reproduce and tune.",
+        "Suboptimal Performance: The author suggests that RL often yields suboptimal results compared to alternative methods like certainty equivalence.",
+        "Potential Over-Reliance on RL in LLMs: The article questions whether RL is truly the best approach for reasoning models in LLMs, suggesting that simpler methods might be more effective."
+      ],
+      "affected_components": [
+        "Reinforcement Learning Algorithms",
+        "Large Language Models (LLMs)",
+        "Reasoning Models",
+        "Policy Gradient Methods"
+      ],
+      "impact_level": "Medium",
+      "technical_details": "The article discusses the inefficiency of policy gradient, a core algorithm in Reformist RL, highlighting its cubic complexity in the dimension of the search space. It also mentions the need to observe every (state, action) pair multiple times in Markov Decision Processes (MDPs). The author contrasts RL with certainty equivalence, which involves building a model of the environment and optimizing as if the model were true. The article also references the use of RL in fine-tuning language models and maximizing the probability of correct answers to questions from benchmarks.",
+      "published_date": "2025-12-05",
+      "sentiment": "Negative"
+    },
+    "raw_content_snippet": "There's got to be a better way! - by Ben Recht - arg min arg min Subscribe Sign in There's got to be a better way! From Reformist RL to the principle of certainty equivalence. Ben Recht Dec 05, 2025 30 22 2 Share You might come away from Tuesday and Wednesday\u2019s posts thinking I\u2019m a fan of Reformist RL. I am decidedly not, so let me clarify my position. I am a fan of the clarity the Reformist perspective brings. I like that it removes the magical and mystical storytelling from the field. I like t..."
+  },
+  {
+    "id": "b7136f48-8d11-457b-b612-2adf6c1ec516",
+    "title": "Kayla UnderkofflerThe OWASP Top 10 for Agentic Applications: A Milestone for the Future of AI SecurityThe OWASP GenAI Security Project has officially released its Top 10 for Agentic Applications, the first industry-standard...Research",
+    "url": "https://www.zenity.io/blog/research/the-owasp-top-10-for-agentic-applications",
+    "source_website_id": "27b26ceb-ef30-49d3-b498-d004c16843b4",
+    "scan_date": "2025-12-16T10:54:55.092323",
+    "analysis": {
+      "summary": "The OWASP GenAI Security Project has released its Top 10 list for Agentic Applications, highlighting the operational risks associated with autonomous and semi-autonomous AI systems. The list aims to provide a framework for security teams to recognize and categorize these risks, focusing on areas like agent goal hijacking, tool misuse, identity abuse, supply chain vulnerabilities, and more.",
+      "attack_vectors": [
+        "Agent Goal Hijack",
+        "Tool Misuse & Exploitation",
+        "Identity & Privilege Abuse",
+        "Agentic Supply Chain Vulnerabilities",
+        "Unexpected Code Execution (RCE)",
+        "Memory & Context Poisoning",
+        "Insecure Inter-Agent Communication",
+        "Cascading Failures",
+        "Human-Agent Trust Exploitation",
+        "Rogue Agents",
+        "Prompt injection"
+      ],
+      "vulnerabilities": [
+        "Misinterpretation of instructions",
+        "Misalignment of instructions",
+        "Maliciously influenced instructions",
+        "Overly broad access scopes",
+        "Compromised dependencies",
+        "Lack of sandboxing for code execution",
+        "Corrupted memory",
+        "Spoofed messages",
+        "Manipulated coordination",
+        "Cross-agent data leakage",
+        "Hallucinations",
+        "Compromised tools",
+        "Social engineering"
+      ],
+      "affected_components": [
+        "AI Agents",
+        "Models",
+        "Tools",
+        "MCP servers",
+        "Prompt templates",
+        "Cloud environments",
+        "SaaS applications",
+        "Endpoints",
+        "Browsers",
+        "Agent memory",
+        "Agent context",
+        "Multi-agent environments"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "Agentic applications, which plan, reason, access data, invoke tools, and take actions, introduce new security risks. Attackers can exploit vulnerabilities in agent design and implementation to hijack goals, misuse tools, abuse identities, poison memory, execute arbitrary code, and compromise inter-agent communication. These attacks can lead to data exfiltration, workflow disruption, and other harmful outcomes. Traditional security controls are insufficient to address these risks, requiring agent-centric security measures such as runtime intent analysis, policy enforcement, least privilege enforcement, and behavioral monitoring.",
+      "published_date": "2025-12-10",
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "OWASP Top 10 for Agentic Applications | Zenity The OWASP Top 10 for Agentic Applications: A Milestone for the Future of AI Security Kayla Underkoffler \u2022 Dec 10, 2025 The OWASP GenAI Security Project has officially released its Top 10 for Agentic Applications , the first industry-standard framework focused on the operational risks created by autonomous and semi-autonomous AI systems. AI has evolved in a way that directly changes how enterprises need to think about security. We started with machin..."
+  },
+  {
+    "id": "5840e822-55a5-400d-a5c9-a8b85ab9c119",
+    "title": "Lana SalamehInside the Agent Stack: Securing Agents in Amazon Bedrock AgentCoreIn the first installment of our Inside the Agent Stack series, we examined the design and security posture of agents...Research",
+    "url": "https://www.zenity.io/blog/research/inside-the-agent-stack-securing-agents-in-amazon-bedrock-agentcore",
+    "source_website_id": "27b26ceb-ef30-49d3-b498-d004c16843b4",
+    "scan_date": "2025-12-16T10:55:13.141446",
+    "analysis": {
+      "summary": "The article discusses security risks associated with AI agents built on Amazon Bedrock AgentCore, focusing on a malicious MCP server attack scenario. It highlights vulnerabilities arising from the platform's modularity and code-first extensibility, leading to potential data exfiltration and persistent control through memory poisoning. The article also introduces Zenity's defense-in-depth approach to secure AgentCore environments.",
+      "attack_vectors": [
+        "Malicious MCP server registration",
+        "Prompt injection via weaponized tool descriptions",
+        "Data exfiltration to external storage",
+        "Memory poisoning to encrypt data",
+        "Exploitation of agent's dynamic tool discovery",
+        "Insider threat",
+        "External attacker exploiting compromised MCP server"
+      ],
+      "vulnerabilities": [
+        "Architectural blind spots due to modularity and code-first extensibility",
+        "Lack of enforcement of memory namespace configurations in AgentCore",
+        "Dynamic tool discovery allowing malicious tools to be used without code changes",
+        "Limited visibility into agent behavior and internal logic in AgentCore",
+        "Oversharing of resources and permissions"
+      ],
+      "affected_components": [
+        "Amazon Bedrock AgentCore Runtime",
+        "Amazon Bedrock AgentCore Memory",
+        "Amazon Bedrock AgentCore Gateway",
+        "Salesforce API integration",
+        "Code Interpreter tool",
+        "MCP servers",
+        "Agents built with CrewAI, LangChain, OpenAI Agents",
+        "AWS Cognito IDP"
+      ],
+      "impact_level": "Critical",
+      "technical_details": "The attack involves an insider registering a malicious MCP server within a gateway used by finance teams. This server exposes a tool with a prompt injection vulnerability, forcing agents to exfiltrate data to an attacker-controlled storage. Later, the attacker updates the tool to poison the agent's memory, instructing it to encrypt data with the attacker's key. This allows for persistent control and data encryption even after the insider's access is revoked. The vulnerability stems from the agent's dynamic tool discovery and the lack of robust memory namespace enforcement.",
+      "published_date": "2025-12-03",
+      "sentiment": "Neutral"
+    },
+    "raw_content_snippet": "Securing Agents in Amazon Bedrock AgentCore Inside the Agent Stack: Securing Agents in Amazon Bedrock AgentCore Lana Salameh \u2022 Dec 03, 2025 In the first installment of our Inside the Agent Stack series, we examined the design and security posture of agents built with Azure Foundry. Continuing the series, we now focus on Amazon Bedrock AgentCore , a managed service for building, deploying, and orchestrating AI agents on AWS. Unlike agentic SaaS platforms that abstract infrastructure behind no-cod..."
+  }
+]

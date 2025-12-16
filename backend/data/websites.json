@@ -1,0 +1,128 @@
+[
+  {
+    "id": "27b26ceb-ef30-49d3-b498-d004c16843b4",
+    "name": "Zenity Blog",
+    "url": "https://www.zenity.io/blog/",
+    "description": "Enterprise Agent Security, Copilot, RAG",
+    "last_scraped_at": "2025-12-16T10:55:13.147238"
+  },
+  {
+    "id": "d21a99db-a330-438a-9358-aa54bb63b010",
+    "name": "HiddenLayer Research",
+    "url": "https://hiddenlayer.com/research/",
+    "description": "Adversarial ML, Model Hijacking",
+    "last_scraped_at": null
+  },
+  {
+    "id": "e09cd9d9-6666-4b70-aa25-bcc9df8ce23c",
+    "name": "Protect AI / Huntr",
+    "url": "https://www.protectai.com/blog",
+    "description": "AI Supply Chain Vulnerabilities",
+    "last_scraped_at": null
+  },
+  {
+    "id": "47cf7373-0e53-476a-aa1b-28ec1b74661a",
+    "name": "Wiz Research",
+    "url": "https://www.wiz.io/blog",
+    "description": "Cloud AI Infrastructure, Tenant Isolation",
+    "last_scraped_at": "2025-12-05T12:04:21.749873"
+  },
+  {
+    "id": "6763df76-68fc-4d43-97cd-37068e62d9ea",
+    "name": "Enkrypt AI",
+    "url": "https://www.enkryptai.com/blog",
+    "description": "LLM Jailbreaking & Red Teaming",
+    "last_scraped_at": null
+  },
+  {
+    "id": "e1767d17-8541-492c-9873-834dd4a13606",
+    "name": "Huntr.com Feed",
+    "url": "https://huntr.com/",
+    "description": "AI Bug Bounty Feed",
+    "last_scraped_at": null
+  },
+  {
+    "id": "0870ad2f-b70b-4a6b-832f-208a3564ffcd",
+    "name": "MITRE ATLAS",
+    "url": "https://atlas.mitre.org/",
+    "description": "Real-world AI attacks mapped to ATT&CK",
+    "last_scraped_at": null
+  },
+  {
+    "id": "09e40a8a-8957-4eb0-bbf9-39f1421fea78",
+    "name": "Hugging Face Security",
+    "url": "https://huggingface.co/blog/security",
+    "description": "Malicious Model Scanning",
+    "last_scraped_at": null
+  },
+  {
+    "id": "42a46fba-245c-48be-b318-3dd935246270",
+    "name": "Google Project Zero",
+    "url": "https://googleprojectzero.blogspot.com/",
+    "description": "Low-level vulnerabilities",
+    "last_scraped_at": null
+  },
+  {
+    "id": "fb38e6f9-1da4-4873-b27e-a75b0395eaee",
+    "name": "arXiv (Cryptography and Security)",
+    "url": "https://arxiv.org/list/cs.CR/recent",
+    "description": "Academic research on AI security",
+    "last_scraped_at": null
+  },
+  {
+    "id": "f305fbd9-2884-4834-a508-8a02567adb38",
+    "name": "Zenity Labs",
+    "url": "https://labs.zenity.io/archive?q=AI",
+    "description": "Zenity\u5b9e\u9a8c\u5ba4\u653b\u51fb\u7814\u7a76",
+    "last_scraped_at": null
+  },
+  {
+    "id": "379dccb4-b17d-4c6c-a28c-f9d01baf3fd9",
+    "name": "OpenAI Safety",
+    "url": "https://openai.com/safety",
+    "description": "Core model safety updates, superalignment",
+    "last_scraped_at": null
+  },
+  {
+    "id": "e3adea1f-40a1-4e9d-acc8-338123db7aae",
+    "name": "Anthropic Research",
+    "url": "https://www.anthropic.com/research",
+    "description": "Constitutional AI, mechanistic interpretability",
+    "last_scraped_at": null
+  },
+  {
+    "id": "8dc75647-05ed-4e71-9798-616128acb88b",
+    "name": "Microsoft Security (AI)",
+    "url": "https://www.microsoft.com/en-us/security/blog/topic/artificial-intelligence/",
+    "description": "Copilot security, enterprise threat intel",
+    "last_scraped_at": null
+  },
+  {
+    "id": "451ff558-806a-4ef5-882f-407867869f31",
+    "name": "Cloudflare AI Blog",
+    "url": "https://blog.cloudflare.com/tag/ai/",
+    "description": "AI Gateway security, prompt injection WAF",
+    "last_scraped_at": null
+  },
+  {
+    "id": "60ff857b-37c4-4282-8398-a83b51913f42",
+    "name": "Unit 42 (Palo Alto)",
+    "url": "https://unit42.paloaltonetworks.com/tag/artificial-intelligence/",
+    "description": "Wild AI attacks, real-world vulnerabilities",
+    "last_scraped_at": null
+  },
+  {
+    "id": "8e6f0a64-d0ea-4f6b-bad6-49a461c9c579",
+    "name": "Darktrace Blog",
+    "url": "https://darktrace.com/blog",
+    "description": "Offensive AI, autonomous response trends",
+    "last_scraped_at": null
+  },
+  {
+    "id": "b4caf21d-a144-45eb-bdbb-1a1f2aa5d11c",
+    "name": "Pillar Security",
+    "url": "https://pillar.security/blog",
+    "description": "Red Teaming, MLOps security",
+    "last_scraped_at": null
+  }
+]

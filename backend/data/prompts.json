@@ -1,0 +1,42 @@
+[
+  {
+    "name": "filter_links_prompt",
+    "template": "You are an AI Security Researcher. Your goal is to identify the single and recent article link from the provided list that discusses a specific AI Security Event, Attack, Vulnerability, or Research.\n        \n        Focus on:\n        - New attack techniques against AI/LLMs\uff0c and AI Agents.\n        - New vulnerabilities found in AI infrastructure or libraries.\n        - AI Security research papers for adversarial ML, attack and vulnerabbilities research.\n        - Real-world AI security incidents.\n        - Published in last 6 months.\n        \n        Ignore:\n        - General company news or marketing.\n        - General company products or solutions.\n        - Generic \"What is AI\" or \"What is the AI top threat\"  articles.\n        - Links to login pages, social media, or homepages, ads.\n        - Links to other sites\n        \n        Links:\n        {links}\n        \n        Return a JSON object array, each array item with a key \"selected_url\" containing the URL. If nothing is relevant, return null.",
+    "description": "Filters links to identify relevant AI security articles.",
+    "input_variables": [
+      "links"
+    ]
+  },
+  {
+    "name": "analyze_article_prompt",
+    "template": "You are an expert AI Security Analyst. Analyze the following article content and extract the security details.\n            \n            Article Content:\n            {content}\n            \n            Return a JSON object matching this schema:\n            {{\n                \"summary\": \"Brief summary of the event/research\",\n                \"attack_vectors\": [\"List of specific attack vectors mentioned\"],\n                \"vulnerabilities\": [\"List of vulnerabilities or CVEs\"],\n                \"affected_components\": [\"List of affected libraries, models, or platforms\"],\n                \"impact_level\": \"Critical/High/Medium/Low\",\n                \"technical_details\": \"A short paragraph explaining the technical aspect of the attack/finding\",\n                \"published_date\": \"YYYY-MM-DD\"\n            }}\n            \n            IMPORTANT: Ensure 'published_date' is in YYYY-MM-DD format. If the date is not explicitly mentioned, try to infer it from the context or metadata. If absolutely no date can be found, use today's date.",
+    "description": "Analyzes article content to extract security details.",
+    "input_variables": [
+      "content"
+    ]
+  },
+  {
+    "name": "monitor_find_latest_issue_prompt",
+    "template": "You are looking for the link to the *latest* newsletter issue from a list of links found on the archive page.\n        \n        Links:\n        {links}\n        \n        Return a JSON object with \"latest_issue_url\". If not found, return null.\n        Prefer links that look like dates or \"Issue #...\".\n        ",
+    "description": "Finds the latest newsletter issue link.",
+    "input_variables": [
+      "links"
+    ]
+  },
+  {
+    "name": "monitor_filter_links_prompt",
+    "template": "You are an AI Security Watchdog. \n        Identify articles related to:\n        - \"AI attack event\"\n        - \"AI threat\"\n        - \"AI vulnerability\"\n        - Adversarial Machine Learning\n        - LLM Injection / Jailbreak\n        \n        Ignore:\n        - General AI news (new models, generic business news)\n        - Sponsors/Ads\n        - Social media profiles\n        \n        Links:\n        {links}\n        \n        Return a JSON object array, each with \"selected_url\" containing the URL.\n        ",
+    "description": "Filters newsletter links for AI security relevance.",
+    "input_variables": [
+      "links"
+    ]
+  },
+  {
+    "name": "monitor_analyze_prompt",
+    "template": "Analyze the following article for AI Security details.\n        \n        Article Content:\n        {content}\n        \n        Return a JSON object matching Analysis schema.\n        IMPORTANT: Start with the field \"sentiment\" which should be \"Critical\", \"Negative\", \"Neutral\", \"Positive\".\n        - Critical/Negative: Attacks, vulnerabilities, threats found.\n        - Neutral: Research without immediate threat, or general discussion.\n        - Positive: Defenses, fixes, improvements.\n        \n        Schema:\n        {{\n            \"sentiment\": \"Critical/Negative/Neutral/Positive\",\n            \"summary\": \"Brief summary\",\n            \"attack_vectors\": [\"List...\"],\n            \"vulnerabilities\": [\"List...\"],\n            \"affected_components\": [\"List...\"],\n            \"impact_level\": \"Critical/High/Medium/Low\",\n            \"technical_details\": \"Details...\",\n            \"published_date\": \"YYYY-MM-DD\"\n        }}\n        ",
+    "description": "Analyzes monitor content for sentiment and security details.",
+    "input_variables": [
+      "content"
+    ]
+  }
+]
