@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 from models import Website, Event, Analysis
 from tools import fetch_page_content, extract_links
-from database import save_events, load_events
+from database import save_events, load_events, get_prompt
 
 load_dotenv()
 model = os.getenv("GOOGLE_MODEL")
@@ -55,17 +55,12 @@ def find_latest_issue_node(state: MonitorState):
     )
     
     parser = JsonOutputParser()
-    prompt = ChatPromptTemplate.from_template(
-        """
-        You are looking for the link to the *latest* newsletter issue from a list of links found on the archive page.
-        
-        Links:
-        {links}
-        
-        Return a JSON object with "latest_issue_url". If not found, return null.
-        Prefer links that look like dates or "Issue #...".
-        """
-    )
+    
+    prompt_obj = get_prompt("monitor_find_latest_issue_prompt")
+    if not prompt_obj:
+         return {"error": "Prompt 'monitor_find_latest_issue_prompt' not found"}
+         
+    prompt = ChatPromptTemplate.from_template(prompt_obj.template)
     
     # Limit links to top 50 to save context
     links_subset = links[:50]
@@ -121,27 +116,11 @@ def filter_monitor_links_node(state: MonitorState):
     
     parser = JsonOutputParser()
     
-    prompt = ChatPromptTemplate.from_template(
-        """
-        You are an AI Security Watchdog. 
-        Identify articles related to:
-        - "AI attack event"
-        - "AI threat"
-        - "AI vulnerability"
-        - Adversarial Machine Learning
-        - LLM Injection / Jailbreak
-        
-        Ignore:
-        - General AI news (new models, generic business news)
-        - Sponsors/Ads
-        - Social media profiles
-        
-        Links:
-        {links}
-        
-        Return a JSON object array, each with "selected_url" containing the URL.
-        """
-    )
+    prompt_obj = get_prompt("monitor_filter_links_prompt")
+    if not prompt_obj:
+         return {"error": "Prompt 'monitor_filter_links_prompt' not found"}
+         
+    prompt = ChatPromptTemplate.from_template(prompt_obj.template)
 
     chain = prompt | llm | parser
     
@@ -200,32 +179,11 @@ def analyze_monitor_node(state: MonitorState):
     
     parser = JsonOutputParser(pydantic_object=Analysis)
     
-    prompt = ChatPromptTemplate.from_template(
-        """
-        Analyze the following article for AI Security details.
-        
-        Article Content:
-        {content}
-        
-        Return a JSON object matching Analysis schema.
-        IMPORTANT: Start with the field "sentiment" which should be "Critical", "Negative", "Neutral", "Positive".
-        - Critical/Negative: Attacks, vulnerabilities, threats found.
-        - Neutral: Research without immediate threat, or general discussion.
-        - Positive: Defenses, fixes, improvements.
-        
-        Schema:
-        {{
-            "sentiment": "Critical/Negative/Neutral/Positive",
-            "summary": "Brief summary",
-            "attack_vectors": ["List..."],
-            "vulnerabilities": ["List..."],
-            "affected_components": ["List..."],
-            "impact_level": "Critical/High/Medium/Low",
-            "technical_details": "Details...",
-            "published_date": "YYYY-MM-DD"
-        }}
-        """
-    )
+    prompt_obj = get_prompt("monitor_analyze_prompt")
+    if not prompt_obj:
+         return {"error": "Prompt 'monitor_analyze_prompt' not found"}
+         
+    prompt = ChatPromptTemplate.from_template(prompt_obj.template)
     
     chain = prompt | llm | parser
 

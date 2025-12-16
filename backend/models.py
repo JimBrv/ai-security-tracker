@@ -32,3 +32,10 @@ class Event(BaseModel):
 class EventArray(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     event: List[Event]=None
+
+class Prompt(BaseModel):
+    name: str  # Unique identifier, e.g., "filter_links_prompt"
+    template: str
+    description: Optional[str] = None
+    input_variables: List[str] = []
+

@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 from models import Website, Event, Analysis
 from tools import fetch_page_content, extract_links
 from tools import fetch_page_content, extract_links
-from database import save_events, load_events, load_websites, save_websites
+from database import save_events, load_events, load_websites, save_websites, get_prompt
 
 load_dotenv()
 model = os.getenv("GOOGLE_MODEL")
@@ -73,30 +73,11 @@ def filter_links_node(state: AgentState):
     
     parser = JsonOutputParser()
     
-    prompt = ChatPromptTemplate.from_template(
-        """
-        You are an AI Security Researcher. Your goal is to identify the single and recent article link from the provided list that discusses a specific AI Security Event, Attack, Vulnerability, or Research.
-        
-        Focus on:
-        - New attack techniques against AI/LLMs， and AI Agents.
-        - New vulnerabilities found in AI infrastructure or libraries.
-        - AI Security research papers for adversarial ML, attack and vulnerabbilities research.
-        - Real-world AI security incidents.
-        - Published in last 6 months.
-        
-        Ignore:
-        - General company news or marketing.
-        - General company products or solutions.
-        - Generic "What is AI" or "What is the AI top threat"  articles.
-        - Links to login pages, social media, or homepages, ads.
-        - Links to other sites
-        
-        Links:
-        {links}
-        
-        Return a JSON object array, each array item with a key "selected_url" containing the URL. If nothing is relevant, return null.
-        """
-    )
+    prompt_obj = get_prompt("filter_links_prompt")
+    if not prompt_obj:
+         return {"error": "Prompt 'filter_links_prompt' not found"}
+         
+    prompt = ChatPromptTemplate.from_template(prompt_obj.template)
 
     chain = prompt | llm | parser
     
@@ -172,27 +153,11 @@ def analyze_article_node(state: AgentState):
         
         parser = JsonOutputParser(pydantic_object=Analysis)
         
-        prompt = ChatPromptTemplate.from_template(
-            """
-            You are an expert AI Security Analyst. Analyze the following article content and extract the security details.
-            
-            Article Content:
-            {content}
-            
-            Return a JSON object matching this schema:
-            {{
-                "summary": "Brief summary of the event/research",
-                "attack_vectors": ["List of specific attack vectors mentioned"],
-                "vulnerabilities": ["List of vulnerabilities or CVEs"],
-                "affected_components": ["List of affected libraries, models, or platforms"],
-                "impact_level": "Critical/High/Medium/Low",
-                "technical_details": "A short paragraph explaining the technical aspect of the attack/finding",
-                "published_date": "YYYY-MM-DD"
-            }}
-            
-            IMPORTANT: Ensure 'published_date' is in YYYY-MM-DD format. If the date is not explicitly mentioned, try to infer it from the context or metadata. If absolutely no date can be found, use today's date.
-            """
-        )
+        prompt_obj = get_prompt("analyze_article_prompt")
+        if not prompt_obj:
+             return {"error": "Prompt 'analyze_article_prompt' not found"}
+        
+        prompt = ChatPromptTemplate.from_template(prompt_obj.template)
         
         chain = prompt | llm | parser
     

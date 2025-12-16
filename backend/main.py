@@ -6,7 +6,7 @@ import uvicorn
 import os
 from dotenv import load_dotenv
 
-from models import Website, Event
+from models import Website, Event, Prompt
 from database import load_websites, save_websites, load_events, save_events
 from graph import app_graph
 from monitor_graph import monitor_graph, generate_daily_summary_report
@@ -59,6 +59,33 @@ def delete_website(website_id: str):
 @app.get("/events", response_model=List[Event])
 def get_events():
     return load_events()
+
+# --- Prompt Endpoints ---
+
+@app.get("/prompts", response_model=List[Prompt])
+def get_prompts():
+    from database import load_prompts
+    return load_prompts()
+
+@app.post("/prompts/{name}", response_model=Prompt)
+def update_prompt(name: str, prompt: Prompt):
+    from database import load_prompts, save_prompts
+    prompts = load_prompts()
+    
+    # Check if prompt exists
+    existing_index = next((i for i, p in enumerate(prompts) if p.name == name), None)
+    
+    if existing_index is not None:
+        prompts[existing_index] = prompt
+    else:
+        # Prevent creating arbitrary new prompts that the system doesn't know about? 
+        # For now, let's allow updating existing ones. 
+        # If we want to allow new ones, we'd append.
+        # But system code relies on specific names.
+        raise HTTPException(status_code=404, detail="Prompt not found")
+        
+    save_prompts(prompts)
+    return prompt
 
 async def run_scan_task(website: Website):
     print(f"Starting background scan for {website.name}")

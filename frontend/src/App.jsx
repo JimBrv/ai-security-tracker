@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 
+import Prompts from './pages/Prompts';
+
 function App() {
     const [activeTab, setActiveTab] = useState('dashboard');
     const [darkMode, setDarkMode] = useState(false);
@@ -18,6 +20,7 @@ function App() {
             <main>
                 {activeTab === 'dashboard' && <Dashboard darkMode={darkMode} />}
                 {activeTab === 'settings' && <Settings darkMode={darkMode} />}
+                {activeTab === 'prompts' && <Prompts darkMode={darkMode} />}
             </main>
         </div>
     );
