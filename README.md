@@ -3,7 +3,7 @@
 A web application for tracking, analyzing, and summarizing AI security events and research. Uses a **multi-agent AI architecture** powered by **LangGraph** and **LangChain**, with **Google Gemini** as the LLM provider. Implements an automated pipeline for discovering, filtering, analyzing, and storing AI security events from various sources.
 
 ## 📜 License
- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+This project is under the MIT License.
 
 ## 🎯 Features
 
